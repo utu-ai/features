@@ -122,3 +122,12 @@ Feature: Receive message
          And a new record will be inserted into Events as follows:
             | eventId | type    | identityId | botId | platform | platformId | sessionId | {identity}     | values.terms              |
             | {.*}    | Message | 1          | A1    | FB       | 1234       | 44        | {Billy Bob...} | [{Order, 50}, {Pizza, 75} |
+
+    @acceptance @invalid_message_received
+    Scenario: Received invalid message for existing identity and session 
+        When a new message is received
+         But the message is lacking a required field:
+            | botId | platform | platformId |
+        Then return a 503 w/ the missing field
+         And ignore the rest of the message
+         
