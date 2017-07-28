@@ -1,20 +1,25 @@
-@dialogs @receive_message
-Feature: Receive message
+@dialog @receive_message
+Feature: new message
   All valid messages
   should be captured in their raw form
   persisted 
   and then denorm'd to all related services
+
+  Why:
+  - we can run sentiment models on user's text to evaluate their state of mind
+  - in the future, we will likely get in the intent business ourselves.  having the raw data will be useful.
+  - in any consumer analytics environment, hold on to ALL the data you can, for as LONG as you can.
 
   Rules:
   - the inbound message must containt a bot key (which kong decodes to org and botId) as well as p/pId
 
     Background:
         Given there are Identity records as follows:
-            | Id | type    | [identityId] | orgId | botId | [{plat, pId}]    | name      | [email]        | [phone]      | [browserId] | [foreignId] | Custom.Messages |
-            | 1  | tin     | 1            | 1     |   A1  | [{FB, 1234}]     | Billy Bob | bbob@gmail.com | 312.312.3124 | [1234]      | [botId-ABC] | 3               |
-            | 3  | bronze  | 3, 1         | 1     |   A1  | [{FB, 1234}]     | Billy Bob | bbob@gmail.com | 312.312.3124 | [1234]      | [botId-ABC] | 3               |
-            | 2  | tin     | 2            | 1     |   A1  | [{Slack, 1234}]  | Billy B   |                |              | [12345]     | [botId-CDE] | 4               |
-            | 4  | bronze  | 4, 2         | 1     |   A1  | [{Slack, 1234}]  | Billy B   |                |              | [12345]     | [botId-CDE] | 4               |
+            | Id            | type    | [identityId] | orgId | botId | [{plat, pId}]    | name      | [email]        | [phone]      | [browserId] | [foreignId] | Custom.Messages |
+            | A1-FB-1234    | tin     | 1            | 1     |   A1  | [{FB, 1234}]     | Billy Bob | bbob@gmail.com | 312.312.3124 | [1234]      | [botId-ABC] | 3               |
+            | 3             | bronze  | 3, 1         | 1     |   A1  | [{FB, 1234}]     | Billy Bob | bbob@gmail.com | 312.312.3124 | [1234]      | [botId-ABC] | 3               |
+            | A1-Slack-1234 | tin     | 2            | 1     |   A1  | [{Slack, 1234}]  | Billy B   |                |              | [12345]     | [botId-CDE] | 4               |
+            | 4             | bronze  | 4, 2         | 1     |   A1  | [{Slack, 1234}]  | Billy B   |                |              | [12345]     | [botId-CDE] | 4               |
           And Session records as follows:
             | sessionId | identityId | botId | stateDate        | lastDate         | 
             | 44        | 1          | A1    | 12/1/2016 5:00PM | 12/3/2016 2:00PM |
@@ -127,7 +132,7 @@ Feature: Receive message
     Scenario: Received invalid message for existing identity and session 
         When a new message is received
          But the message is lacking a required field:
-            | botId | platform | platformId |
+            | botId | orgId | platform | platformId |
         Then return a 503 w/ the missing field
          And ignore the rest of the message
          
