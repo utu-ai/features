@@ -1,4 +1,4 @@
-@dialogs @receive_message
+@identity @identity_post
 Feature: Update identity
   ...
 
