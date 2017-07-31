@@ -1,0 +1,210 @@
+{
+  id: 'bot1-FB-1234',
+  type: tin
+  identities: [bot1-FB-1234],
+  ordId: org1,
+  botId: bot1,
+  ppid: [{FB, 1234}],
+  browserId: ['abc-abc'],
+  foreignId: ['bot1-abc'],
+  name: 'Billy Bob',
+  email: ['bbob@gmail.com'],
+  phone: ['312-312-3124'],
+  custom: {
+      messageCount: 15,
+      gender: 'M',
+  }
+}
+{
+  id: 'bot1-SMS-1234',
+  type: tin
+  identities: [bot1-FB-1234],
+  ordId: org1,
+  botId: bot1,
+  ppid: [{SMS, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'Billy B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 15,
+      dma: 'Philly',
+  }
+}
+{
+  id: 'bot1-SLACK-1234',
+  type: tin
+  identities: [bot1-SLACK-1234],
+  ordId: org1,
+  botId: bot1,
+  ppid: [{SLACK, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'Billy B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 1,
+  }
+}
+{
+  id: 'bot2-FB-1234',
+  type: tin
+  identities: [bot2-FB-1234],
+  ordId: org1,
+  botId: bot2,
+  ppid: [{FB, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'Billy B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 10,
+  }
+}
+{
+  id: 'bot3-FB-1234',
+  type: tin
+  identities: [bot3-FB-1234],
+  ordId: org2,
+  botId: bot3,
+  ppid: [{FB, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'B B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 10,
+  }
+}
+{
+  id: 'bronze1',
+  type: bronze
+  identities: [bronze1, bot1-FB-1234],
+  ordId: org1,
+  botId: bot1,
+  ppid: [{FB, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'B B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 10,
+  }
+}
+{
+  id: 'bronze2',
+  type: bronze
+  identities: [bronze2, bot1-SMS-1234],
+  ordId: org1,
+  botId: bot1,
+  ppid: [{SMS, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'B B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 10,
+  }
+}
+{
+  id: 'bronze3',
+  type: bronze
+  identities: [bronze3, bot1-SLACK-1234],
+  ordId: org1,
+  botId: bot1,
+  ppid: [{SLACK, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'B B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 10,
+  }
+}
+{
+  id: 'bronze4',
+  type: bronze
+  identities: [bronze4, bot2-FB-1234],
+  ordId: org1,
+  botId: bot2,
+  ppid: [{FB, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'B B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 10,
+  }
+}
+{
+  id: 'bronze5',
+  type: bronze
+  identities: [bronze5, bot3-FB-1234],
+  ordId: org2,
+  botId: bot3,
+  ppid: [{FB, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'B B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 10,
+  }
+}
+{
+  id: 'gold1',
+  type: gold,
+  identities: [gold1, bot1-FB-1234, bot2-FB-1234, bot3-FB-1234],
+  ordId: [org1, org2],
+  botId: [bot1, bot2, bot3],
+  ppid: [{FB, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'B B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 10,
+  }
+},
+{
+  id: 'gold2',
+  type: gold,
+  identities: [gold2, bot1-SMS-1234],
+  ordId: org1,
+  botId: bot1,
+  ppid: [{FB, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'B B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 10,
+  }
+}
+{
+  id: 'gold3',
+  type: gold,
+  identities: [gold3, bot3-FB-1234],
+  ordId: org2,
+  botId: bot3,
+  ppid: [{FB, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'B B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 10,
+  }
+}

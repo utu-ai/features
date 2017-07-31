@@ -1,0 +1,9 @@
+{
+  identityId: bot1-FB-1234,
+  sessionId: 44,
+  botId: bot1,
+  orgId: org1,
+  startDate: '12/1/2016 5:00PM',
+  lastDate: '12/3/2016 2:00PM',
+  eventCount: 7,
+}

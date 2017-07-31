@@ -1,0 +1,19 @@
+{
+  eventId: xyz,
+  type: message,
+  identityId: bot1-FB-1234,
+  sessionId: 44,
+  botId: bot1,
+  orgId: org1,
+  platform: FB,
+  platformId: 1234,
+  value: {
+    bIdentity: {
+      name: 'bill b',
+    },
+    terms: [
+      { term: 'love', rate: .55},
+      { term: 'machine', rate: .45},
+    ],
+  }
+}

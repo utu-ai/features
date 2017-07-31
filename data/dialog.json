@@ -1,0 +1,19 @@
+{
+  identityId: bot1-FB-1234,
+  sessionId: 1,
+  botId: bot1,
+  platform: FB,
+  pId: 1234,
+  bIdentity: {
+    name: 'billy bob',
+  },
+  terms: [
+    { term: 'love',
+      likelihood: .55,
+    },
+    { term: 'machine',
+      likelihood: .65,
+    },
+  ],
+  messageCount: 8,
+}

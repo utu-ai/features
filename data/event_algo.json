@@ -1,0 +1,5 @@
+{
+  event: order,
+  customVar: LTV,
+  algo: propensityToChurn,
+}
