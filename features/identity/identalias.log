@@ -1,0 +1,57 @@
+Running "jshint:all" (jshint) task
+>> 1 file lint free.
+
+Running "exec:run_cucumber_tests" (exec) task
+[36m@identity @identity_post[39m
+Feature: alias identity
+
+  One off condition.  Used when a known foreignId wants to be applied
+  directly against a known tin (a.k.a. identityId).
+
+  Why:
+  - Cross linking match keys is one of the most important things we can do.
+
+  Rules:
+  - ...
+
+  [36m@for_testing @acceptance @for_testing[39m
+  Scenario: Alias called for a known identity
+    [31mGiven there are Identity records as follows:[39m
+      | [31midentityKey  [39m |
+      | [31mTIN_RECORD   [39m |
+      | [31mBRONZE_RECORD[39m |
+      | [31mGOLD_RECORD  [39m |
+    [33mWhen an aliased foreignId is received[39m
+    [36mThen review medal match when upserting an Identity tin record[39m
+    [36mAnd push update to all medal Identity views[39m
+    [36mAnd push impacted Identity rollup to related services[39m
+
+Failures:
+
+1) Background:
+   Step: [1mGiven there are Identity records as follows:[22m - [90mfeatures/identity/alias_identity.feature:14[39m
+   Message:
+     [31mMultiple step definitions match:
+       /^there are Identity records as follows:$/ - features/dialog/step_definition.js:25
+       /^there are Identity records as follows:$/ - features/event/step_definition.js:24
+       /^there are Identity records as follows:$/ - features/identity/step_definition.js:23[39m
+
+Warnings:
+
+1) Scenario: [1mAlias called for a known identity[22m - [90mfeatures/identity/alias_identity.feature:21[39m
+   Step: [1mWhen an aliased foreignId is received[22m - [90mfeatures/identity/alias_identity.feature:22[39m
+   Message:
+     [33mUndefined. Implement with the following snippet:
+
+       this.When(/^an aliased foreignId is received$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });[39m
+
+1 scenario ([31m1 ambiguous[39m)
+5 steps ([31m1 ambiguous[39m, [33m1 undefined[39m, [36m3 skipped[39m)
+0m00.000s
+>> Exited with code: 1.
+Warning: Task "exec:run_cucumber_tests" failed. Use --force to continue.
+
+Aborted due to warnings.

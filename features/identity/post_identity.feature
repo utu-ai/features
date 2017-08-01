@@ -12,7 +12,6 @@ Feature: upsert identity
   Rules:
   - ...
 
-@for_testing
 Background:
     Given there are Identity records as follows:
     | identityKey    |
@@ -20,14 +19,13 @@ Background:
     | BRONZE_RECORD  |
     | GOLD_RECORD    |
                      
-@acceptance @for_testing
+@acceptance
 Scenario: Update received for Identity "custom" field 
     When an Identity update is received for a non-matching field
     Then upsert an Identity tin record
      And push update to all medal Identity views
      And push Identity rollup to related services 
-
-@for_testing        
+       
 Scenario Outline: Updare received for Identity "match" field
     When an Identity update is received with <matchField>
     Then review medal match when upserting an Identity tin record

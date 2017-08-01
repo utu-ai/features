@@ -16,10 +16,7 @@ var restFactory = require("../../rest_factory");
 //       {"term1": "term1", "prob": ".55"},
 //       {"term2": "term2", "prob": ".45"},
 //     ],
-//     "rawMessage": {
-//       "body": "stufff...",
-//       "text": "stufff...",
-//     },
+//     "rawMessage": "<html>green eggs and ham</html>",
 //     "message": "green eggs and ham"
 //   }
 

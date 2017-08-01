@@ -30,7 +30,28 @@ module.exports = function() {
         // then validate true to complete this step.
     };
 
+    //TODO: is this just a global step?
+    this.Given(/^request contains botKey with right access level$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
+
     this.When(/^an Identity update is received for a non\-matching field$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
+
+    this.When(/^an Identity search request by (.*) for (.*) type is received$/, function (matchField, medal, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
+
+    this.When(/^an Identity update is received with (.*)$/, function (matchField, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
+
+    this.When(/^an aliased foreignId is received$/, function (callback) {
          // Write code here that turns the phrase above into concrete actions
          callback(null, 'pending');
     });
@@ -48,17 +69,17 @@ module.exports = function() {
          callback(null, 'pending');
     });
 
-    this.When(/^an Identity update is received with (.*)$/, function (matchField, callback) {
-         // Write code here that turns the phrase above into concrete actions
-         callback(null, 'pending');
-    });
-
     this.Then(/^review medal match when upserting an Identity tin record$/, function () {
          // Write code here that turns the phrase above into concrete actions
     });
     
     this.Then(/^push impacted Identity rollup to related services$/, function () {
         // Write code here that turns the phrase above into concrete actions
+    });
+
+    this.Then(/^return the requested Identity record\(s\) or an appropriate response$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
     });
 
 };
