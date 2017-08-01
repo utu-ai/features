@@ -14,48 +14,36 @@ Feature: new message
   - the inbound message must containt a bot key (which kong decodes to org and botId) as well as p/pId
 
     Background:
-        Given the following identity records:
-          [db.getIdentity(Tin)]
-          And Session records:
-          [db.getSession(Tin)]
-          And Dialog records as follows:
-          [db.getDialog(Tin)]
+      Given there are Identity records as follows:
+      | identityKey    |
+      | TIN_RECORD     |
+      | BRONZE_RECORD  |
+      | GOLD_RECORD    |
+        And Dialog records as follows:
+        | dialogKey     |
+        | DIALOG_RECORD |
 
     @acceptance @valid_message_received
-    Scenario: Received valid message
-        When a valid new message is received for an existing user
+    Scenario: Received valid message from existing user for active dialog
+      When a valid new message is received for an existing user who is actively dialoging
+      Then save the message
+       And update dialog
+       And update identity
+       And create a summarized event
+
+     @acceptance @valid_message_received
+     Scenario: Received valid message from existing user for new dialog
+       When a valid new message is received for an existing user starting a new dialog
+       Then save the message
+        And update dialog
+        And update identity
+        And create a summarized event
+
+      @acceptance @valid_message_received
+      Scenario: Received valid message from new user
+        When a valid new message is received from a new user
         Then save the message
          And update dialog
          And update identity
          And create a summarized event
-
-# Do we need from ehre down?
-
-    @acceptance @valid_message_received @existing_session
-    Scenario: Received valid message for existing identity and session
-        When a valid new message is received for an existing user
-        Then save the message
-         And update dialog
-         And update identity
-         And create a summarized event
-
-    @acceptance @valid_message_received @new_session
-    Scenario: Received valid message for existing identity and new session
-        Given the new message is NOT received within the time frame for the current session
-        When a valid new message is received
-         And identity creates and returns a new session
-        Then save the message
-         And create a new dialog
-         And update the identity counts
-         And create a summarized event
-
-
-    @acceptance @valid_message_received @new_identity
-    Scenario: Received valid message for NEW identity and new session
-        When a valid new message is received
-         And identity creates and returns a new identity
-         And returns a new session
-        Then save the message
-         And create a new dialog
-         And update the identity counts
-         And create a summarized event
+         
