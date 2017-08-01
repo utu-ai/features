@@ -9,8 +9,7 @@ Feature: Search identity
   - ...
 
     Background:
-        Given there are Identity records as follows:
-    all requests are scoped to a specific botId
+        Given there are Identity records as follows
 
     # these are probably a REALLY good example as when to use examples?             
     @acceptance 

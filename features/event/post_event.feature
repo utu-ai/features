@@ -12,7 +12,7 @@ Feature: new event
 
   Rules:
   - Every event must be associated to a singular identity and session
-
+ 
   Background:
     Given there are Identity records as follows:
     | identityKey    |
@@ -22,6 +22,6 @@ Feature: new event
 
   @acceptance @valid_event_received
   Scenario: Valid event received
-    When a valid new event is received
-    Then save the event
-     And update Identity
+    When a valid new Event is received
+    Then save the Event
+     And update Identity with Event
