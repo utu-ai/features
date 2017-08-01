@@ -8,17 +8,18 @@
   browserId: ['abc-abc'],
   foreignId: ['bot1-abc'],
   name: 'Billy Bob',
-  email: ['bbob@gmail.com'],
-  phone: ['312-312-3124'],
+  email: [],
+  phone: [],
   custom: {
       messageCount: 15,
       gender: 'M',
-  }
+  },
+  created: 6/1/17
 }
 {
   id: 'bot1-SMS-1234',
   type: tin
-  identities: [bot1-FB-1234],
+  identities: [bot1-SMS-1234],
   ordId: org1,
   botId: bot1,
   ppid: [{SMS, 1234}],
@@ -30,7 +31,8 @@
   custom: {
       messageCount: 15,
       dma: 'Philly',
-  }
+  },
+  created: 6/2/17
 }
 {
   id: 'bot1-SLACK-1234',
@@ -46,7 +48,8 @@
   phone: [],
   custom: {
       messageCount: 1,
-  }
+  },
+  created: 6/3/17
 }
 {
   id: 'bot2-FB-1234',
@@ -62,7 +65,8 @@
   phone: [],
   custom: {
       messageCount: 10,
-  }
+  },
+  created: 6/4/17
 }
 {
   id: 'bot3-FB-1234',
@@ -78,7 +82,8 @@
   phone: [],
   custom: {
       messageCount: 10,
-  }
+  },
+  created: 6/5/17
 }
 {
   id: 'bronze1',
@@ -89,12 +94,14 @@
   ppid: [{FB, 1234}],
   browserId: [],
   foreignId: [],
-  name: 'B B',
+  name: 'Billy Bob',
   email: [],
   phone: [],
   custom: {
-      messageCount: 10,
-  }
+      messageCount: 15,
+      gender: 'M',
+  },
+  created: 6/1/17
 }
 {
   id: 'bronze2',
@@ -105,12 +112,14 @@
   ppid: [{SMS, 1234}],
   browserId: [],
   foreignId: [],
-  name: 'B B',
+  name: 'Billy B',
   email: [],
   phone: [],
   custom: {
-      messageCount: 10,
-  }
+      messageCount: 15,
+      dma: 'Philly',
+  },
+  created: 6/2/17
 }
 {
   id: 'bronze3',
@@ -121,12 +130,13 @@
   ppid: [{SLACK, 1234}],
   browserId: [],
   foreignId: [],
-  name: 'B B',
+  name: 'Billy B',
   email: [],
   phone: [],
   custom: {
-      messageCount: 10,
-  }
+      messageCount: 1,
+  },
+  created: 6/3/17
 }
 {
   id: 'bronze4',
@@ -137,12 +147,13 @@
   ppid: [{FB, 1234}],
   browserId: [],
   foreignId: [],
-  name: 'B B',
+  name: 'Billy B',
   email: [],
   phone: [],
   custom: {
       messageCount: 10,
-  }
+  },
+  created: 6/4/17
 }
 {
   id: 'bronze5',
@@ -158,7 +169,78 @@
   phone: [],
   custom: {
       messageCount: 10,
-  }
+  },
+  created: 6/5/17
+}
+{
+  id: 'silver1',
+  type: silver
+  identities: [silver1, bot1-FB-1234, bot2-FB-1234],
+  ordId: org1,
+  botId: [bot1, bo2],
+  ppid: [{FB, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'Billy B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 10,
+      gender: M,
+  },
+  created: 6/1/17
+}
+{
+  id: 'silver2',
+  type: silver
+  identities: [silver2, bot1-SMS-1234],
+  ordId: org1,
+  botId: bot1,
+  ppid: [{SMS, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'Billy B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 15,
+      dma: Philly,
+  },
+  created: 6/2/17
+}
+{
+  id: 'silver3',
+  type: silver
+  identities: [silver3, bot1-SLACK-1234],
+  ordId: org1,
+  botId: bot1,
+  ppid: [{SLACK, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'Billy B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 1,
+  },
+  created: 6/3/17
+}
+{
+  id: 'silver4',
+  type: silver
+  identities: [silver4, bot1-FB-1234],
+  ordId: org2,
+  botId: bot3,
+  ppid: [{FB, 1234}],
+  browserId: [],
+  foreignId: [],
+  name: 'B B',
+  email: [],
+  phone: [],
+  custom: {
+      messageCount: 10,
+  },
+  created: 6/5/17
 }
 {
   id: 'gold1',
@@ -174,7 +256,9 @@
   phone: [],
   custom: {
       messageCount: 10,
-  }
+      gender: M,
+  },
+  created: 6/1/17
 },
 {
   id: 'gold2',
@@ -182,29 +266,32 @@
   identities: [gold2, bot1-SMS-1234],
   ordId: org1,
   botId: bot1,
-  ppid: [{FB, 1234}],
+  ppid: [{SMS, 1234}],
   browserId: [],
   foreignId: [],
-  name: 'B B',
+  name: 'Billy B',
   email: [],
   phone: [],
   custom: {
-      messageCount: 10,
-  }
+      messageCount: 15,
+      dma: Philly,
+  },
+  created: 6/2/17
 }
 {
   id: 'gold3',
   type: gold,
-  identities: [gold3, bot3-FB-1234],
-  ordId: org2,
-  botId: bot3,
-  ppid: [{FB, 1234}],
+  identities: [gold3, bot3-SLACK-1234],
+  ordId: org1,
+  botId: bot1,
+  ppid: [{SLACK, 1234}],
   browserId: [],
   foreignId: [],
-  name: 'B B',
+  name: 'Billy B',
   email: [],
   phone: [],
   custom: {
-      messageCount: 10,
-  }
+      messageCount: 1,
+  },
+  created: 6/3/17
 }
