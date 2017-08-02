@@ -25,6 +25,11 @@ module.exports = function() {
         checkWhetherRecordsPresent();
     });
 
+    this.Given(/^there are EventAlgo mappings as follows:$/, function (table, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
+
     var checkWhetherRecordsPresent = function(){
         // Call the mongoDB and check whether the table contents are present in the database MongoDB utility
         // If not, insert the contents into the database
@@ -52,12 +57,22 @@ module.exports = function() {
         );
     });
 
+    this.When(/^an Event of type (.*) containing an (.*) is received$/, function (eType, matchKey, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
+
     this.Then(/^save the Event$/, function () {
          // Write code here that turns the phrase above into concrete actions
     });
     
     this.Then(/^update Identity with Event$/, function () {
         // Write code here that turns the phrase above into concrete actions
+    });
+
+    this.Then(/^the associated Algo should fire$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
     });
 
 };

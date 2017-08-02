@@ -9,7 +9,6 @@ Feature: alias identity
   Rules:
   - ...
 
-@for_testing
 Background:
     Given there are Identity records as follows:
     | identityKey    |
@@ -17,7 +16,7 @@ Background:
     | BRONZE_RECORD  |
     | GOLD_RECORD    |
                      
-@acceptance @for_testing
+@acceptance
 Scenario: Alias called for a known identity
     When an aliased foreignId is received 
     Then review medal match when upserting an Identity tin record
