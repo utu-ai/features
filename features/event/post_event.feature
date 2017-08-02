@@ -12,7 +12,11 @@ Feature: new event
 
   Rules:
   - Every event must be associated to a singular identity and session
- 
+
+  Components:
+    Identity
+    Event
+
   Background:
     Given there are Identity records as follows:
     | identityKey    |

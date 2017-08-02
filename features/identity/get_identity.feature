@@ -10,14 +10,17 @@ Feature: Search identity
   Rules:
   - need to be very locked down to make sure we only give access to proper requests.  Fatal place for leaks.
 
+  Components:
+    Identity
+
 Background:
     Given there are Identity records as follows:
     | identityKey    |
     | TIN_RECORD     |
     | BRONZE_RECORD  |
     | GOLD_RECORD    |
-                     
-@acceptance    
+
+@acceptance
 Scenario Outline: Updare received for Identity "match" field
     Given request contains botKey with right access level
      When an Identity search request by <matchField> for <medal> type is received
@@ -26,9 +29,8 @@ Scenario Outline: Updare received for Identity "match" field
     Examples:
     | matchField    | medal  |
     | tinId         | tin    |
-    | email         | bronze |    
+    | email         | bronze |
     | browserId     | silver |
     | p + pid       | gold   |
     | foreignId     |
-    | phone         | 
-  
+    | phone         |

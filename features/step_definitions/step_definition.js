@@ -62,6 +62,11 @@ module.exports = function() {
         this.restFactory.message('Rajesh');
     };
 
+    this.Given(/^requests originate from inside the cluster$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      callback(null, 'pending');
+    });
+
     this.Given(/^there are Identity records as follows:$/, function (table) {
         checkWhetherRecordsPresent();
     });
@@ -74,7 +79,7 @@ module.exports = function() {
     this.Given(/^request originates from a taggable browser$/, function (callback) {
          callback(null, 'pending');
     });
-    
+
     this.Given(/^dialog rendered link has NOT been clicked$/, function (callback) {
          // Write code here that turns the phrase above into concrete actions
          callback(null, 'pending');
@@ -94,10 +99,20 @@ module.exports = function() {
         checkWhetherRecordsPresent();
     });
 
+    this.When(/^request received for a bots apiKey$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      callback(null, 'pending');
+    });
+
+    this.When(/^request received to roll a bots apiKey$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      callback(null, 'pending');
+    });
+
     this.When(/^a valid new Event is received$/, function (callback) {
         this.helloWorld.message('Rajesh');
         var apiKey = "0475dbadc4cb410bbf562d605ea2cd47";
-        var context = {          
+        var context = {
             platform: "sms",
             platformId: "123-123-1234",
             event: "test sms evet",
@@ -150,6 +165,51 @@ module.exports = function() {
         callback(null, 'pending');
     });
 
+    this.When(/^request received to create bot$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      callback(null, 'pending');
+    });
+
+    this.When(/^request received to update bot$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      callback(null, 'pending');
+    });
+
+    this.When(/^request received to query bot by owner$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      callback(null, 'pending');
+    });
+
+    this.When(/^request received to query bot by owner and bot$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      callback(null, 'pending');
+    });
+
+    this.Then(/^bot is updated$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      callback(null, 'pending');
+    });
+
+    this.Then(/^return a list of bots$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      callback(null, 'pending');
+    });
+
+    this.Then(/^bot is created$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      callback(null, 'pending');
+    });
+
+    this.Then(/^return the apiKey$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      callback(null, 'pending');
+    });
+
+    this.Then(/^return the apiKey$/, function (callback) {
+      // Write code here that turns the phrase above into concrete actions
+      callback(null, 'pending');
+    });
+
     this.Then(/^the browser should be tagged for the utu\.ai domain$/, function (callback) {
          // Write code here that turns the phrase above into concrete actions
          callback(null, 'pending');
@@ -168,7 +228,7 @@ module.exports = function() {
     this.Then(/^save the Event$/, function () {
          // Write code here that turns the phrase above into concrete actions
     });
-    
+
     this.Then(/^update Identity with Event$/, function () {
         // Write code here that turns the phrase above into concrete actions
     });

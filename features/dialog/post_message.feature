@@ -13,6 +13,11 @@ Feature: new message
   Rules:
   - the inbound message must containt a bot key (which kong decodes to org and botId) as well as p/pId
 
+  Components:
+    Dialog
+    Identity
+    Event
+
   Background:
     Given there are Identity records as follows:
     | identityKey    |
@@ -23,7 +28,7 @@ Feature: new message
       | dialogKey     |
       | DIALOG_RECORD |
 
-  @acceptance @valid_message_received 
+  @acceptance @valid_message_received
   Scenario: Received valid message from existing user for active dialog
     When a valid new message is received for an existing user who is actively dialoging
     Then save the Message
@@ -31,7 +36,7 @@ Feature: new message
      And update Identity with Message
      And create a summarized Event for Message
 
-  @acceptance @valid_message_received 
+  @acceptance @valid_message_received
   Scenario: Received valid message from existing user for new dialog
     When a valid new message is received for an existing user starting a new dialog
     Then save the Message
@@ -46,4 +51,3 @@ Feature: new message
       And update Dialog with Message
       And update Identity with Message
       And create a summarized Event for Message
-         

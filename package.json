@@ -11,18 +11,18 @@
     "test": "node_modules/grunt-cli/bin/grunt"
   },
   "devDependencies": {
-    "cucumber": "^0.10.2",
-    "selenium-webdriver": "^2.53.2",
+    "JSONPath": "~0.9.1",
     "chai": "^3.5.0",
+    "cucumber": "^0.10.2",
+    "cucumber-html-reporter": "^2.0.3",
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-jshint": "^1.0.0",
-    "grunt-exec": "^0.4.7",
     "grunt-env": "^0.4.4",
+    "grunt-exec": "^0.4.7",
+    "request": "~2.27.0",
+    "rest-assured": "^0.1.0",
     "sanitize-filename": "^1.6.0",
-    "rest-assured":"^0.1.0",
-    "cucumber-html-reporter":"^2.0.3",
-    "JSONPath": "~0.9.1",
-    "request": "~2.27.0"
+    "selenium-webdriver": "^2.53.2"
   }
 }

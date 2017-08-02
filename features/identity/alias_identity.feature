@@ -5,9 +5,14 @@ Feature: alias identity
 
   Why:
   - Cross linking match keys is one of the most important things we can do.
-  
+
   Rules:
   - ...
+
+  Components:
+    Identity
+    Event
+    Dialog
 
 Background:
     Given there are Identity records as follows:
@@ -15,10 +20,10 @@ Background:
     | TIN_RECORD     |
     | BRONZE_RECORD  |
     | GOLD_RECORD    |
-                     
+
 @acceptance
 Scenario: Alias called for a known identity
-    When an aliased foreignId is received 
+    When an aliased foreignId is received
     Then review medal match when upserting an Identity tin record
      And push update to all medal Identity views
      And push impacted Identity rollup to related services
