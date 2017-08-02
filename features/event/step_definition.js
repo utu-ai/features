@@ -4,6 +4,7 @@
     var identifier = null;
     var helloWorld = require("../../hello_world");
     var restFactory = require('../../rest_factory');
+    var mongoDB = require("../../data_factory");
 // Public Api:
 // https://api.utu.ai/v1/track
 // header:
@@ -22,18 +23,19 @@
 module.exports = function() {
 
     this.Given(/^there are Identity records as follows:$/, function (table) {
-        checkWhetherRecordsPresent();
+        checkWhetherRecordsPresent(table);
     });
 
-    var checkWhetherRecordsPresent = function(){
+    var checkWhetherRecordsPresent = function(table){
         // Call the mongoDB and check whether the table contents are present in the database MongoDB utility
         // If not, insert the contents into the database
         // then validate true to complete this step.
-        this.restFactory.message('Rajesh');
+        //this.restFactory.message('Rajesh');
+        
     };
 
     this.When(/^a valid new Event is received$/, function (callback) {
-        this.helloWorld.message('Rajesh');
+        //this.helloWorld.message('Rajesh');
         var apiKey = "0475dbadc4cb410bbf562d605ea2cd47";
         var context = {          
             platform: "sms",
@@ -53,8 +55,9 @@ module.exports = function() {
         );
     });
 
-    this.Then(/^save the Event$/, function () {
-         // Write code here that turns the phrase above into concrete actions
+    this.Then(/^save the Event$/, function (callback) {
+        callback();
+         expect(restFactory.lastResponse.statusCode).to.equal(200);
     });
     
     this.Then(/^update Identity with Event$/, function () {
