@@ -20,9 +20,9 @@ var restFactory = require("../../rest_factory");
 
 module.exports = function() {
 
-    this.Given(/^there are Identity records as follows:$/, function (table) {
+    /*this.Given(/^there are Identity records as follows:$/, function (table) {
         checkWhetherRecordsPresent();
-    });
+    });*/
 
     var checkWhetherRecordsPresent = function(){
         // Call the mongoDB and check whether the table contents are present in the database MongoDB utility

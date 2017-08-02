@@ -20,7 +20,7 @@ Feature: new event
     | BRONZE_RECORD  |
     | GOLD_RECORD    |
 
-  @acceptance @valid_event_received
+  @acceptance @valid_event_received  @for_testing
   Scenario: Valid event received
     When a valid new Event is received
     Then save the Event

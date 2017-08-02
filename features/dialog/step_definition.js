@@ -22,9 +22,9 @@ var restFactory = require("../../rest_factory");
 
 module.exports = function() {
 
-    this.Given(/^there are Identity records as follows:$/, function (table) {
+    /*this.Given(/^there are Identity records as follows:$/, function (table) {
         checkWhetherRecordsPresent();
-    });
+    });*/
 
     this.Given(/^there are Dialog records as follows:$/, function (table) {
         checkWhetherRecordsPresent();

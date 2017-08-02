@@ -10,6 +10,10 @@ var restFactory = function restFactory(callback) {
 
   this.lastResponse = null;
 
+  this.message = function(name){
+      console.info('Hello '+ name);
+  }
+
   this.get = function(path, callback) {
     var uri = this.uri(path)
     request.get({url: uri, headers: {'User-Agent': 'request'}},
@@ -92,4 +96,4 @@ var restFactory = function restFactory(callback) {
   callback();
 }
 
-exports.restFactory = restFactory;
+module.exports.restFactory = restFactory;
