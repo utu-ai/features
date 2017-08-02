@@ -10,26 +10,68 @@ var restFactory = require("../../rest_factory");
 // body:
 // {
 // }
+//
+// https://makenu.utu.ai/v1/*
+// header:
+//  identityId
+// body:
+// {
+// }
+// https://makenu.utu.ai/v1/pixel
+// header:
+// body:
+// {
+// }
 
 module.exports = function() {
 
-    // this.Given(/^there are Identity records as follows:$/, function (table) {
-    //     checkWhetherRecordsPresent();
-    // });
+    this.Given(/^request originates from a taggable browser$/, function (callback) {
+         callback(null, 'pending');
+    });
+    
+    this.Given(/^dialog rendered link has NOT been clicked$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
 
-    var checkWhetherRecordsPresent = function(){
-        // Call the mongoDB and check whether the table contents are present in the database MongoDB utility
-        // If not, insert the contents into the database
-        // then validate true to complete this step.
-    };
+    this.Given(/^there is only one participant in the dialog$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
 
-    // this.When(/^an Identity update is received for a non\-matching field$/, function (callback) {
-    //      // Write code here that turns the phrase above into concrete actions
-    //      callback(null, 'pending');
-    // });
+    this.Given(/^the uTu success pixel has been deployed on a client site$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
 
-    // this.Then(/^upsert an Identity tin record$/, function () {
-    //      // Write code here that turns the phrase above into concrete actions
-    // });
+    this.When(/^request made for uTu\.ai browserId$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
+
+    this.When(/^the dialog link is clicked$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
+
+    this.When(/^the success pixel is clicked$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
+
+    this.Then(/^the browser should be tagged for the utu\.ai domain$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
+
+    this.Then(/^uTu\.ai cookieId should be returned$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
+
+    this.Then(/^the browserId should be aliased to the dialog identity$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+    });
 
 };
