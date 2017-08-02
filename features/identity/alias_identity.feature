@@ -22,4 +22,3 @@ Scenario: Alias called for a known identity
     Then review medal match when upserting an Identity tin record
      And push update to all medal Identity views
      And push impacted Identity rollup to related services
-        
