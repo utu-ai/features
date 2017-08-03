@@ -185,6 +185,16 @@ module.exports = function() {
       callback(null, 'pending');
     });
 
+    this.When(/^a link is to be posted in a dialog$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+    });
+
+    this.Then(/^the link should be shortened and proxied$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+    });
+
     this.Then(/^bot is updated$/, function (callback) {
       // Write code here that turns the phrase above into concrete actions
       callback(null, 'pending');

@@ -1,9 +1,0 @@
-Running "jshint:all" (jshint) task
->> 1 file lint free.
-
-Running "exec:run_cucumber_tests" (exec) task
-0 scenarios
-0 steps
-0m00.000s
-
-Done.
