@@ -1,2 +1,2 @@
-exports.BASE_URL="https://api.utu.ai/v1/";
+exports.BASE_URL="https://cucumber.utu.ai/";
 exports.TEST_TYPE="REST";
