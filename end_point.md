@@ -1,6 +1,6 @@
-https://cucumber.utu.ai:4090/v1/events/search
-https://cucumber.utu.ai:4090/v1/events/searchCount
-x - https://cucumber.utu.ai:5000/v1/events/track (p)
+https://cucumber.utu.ai:5000/v1/events/search
+https://cucumber.utu.ai:5000/v1/events/searchCount
+x - https://cucumber.utu.ai:4090/v1/track
 
 https://cucumber.utu.ai:4020/v1/identity/upsert
 https://cucumber.utu.ai:4020/v1/identity/search

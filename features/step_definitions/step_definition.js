@@ -1,8 +1,12 @@
 'use strict';
+// import cow from '../../my_factory.js';
+
 
 var expect = require('chai').expect;
 var identifier = null;
 var restFactory = require("../../rest_factory");
+// var dataFactory = require("../../data_factory");
+var cow = require("../../my_factory");
 
 // Public Api:
 // https://makenu.utu.ai/v1/browser-id
@@ -59,7 +63,9 @@ module.exports = function() {
         // Call the mongoDB and check whether the table contents are present in the database MongoDB utility
         // If not, insert the contents into the database
         // then validate true to complete this step.
-        this.restFactory.message('Rajesh');
+        // this.restFactory.message('Rajesh');
+        // myFactory.mongoTest();
+        cow.speak();
     };
 
     this.Given(/^requests originate from inside the cluster$/, function (callback) {

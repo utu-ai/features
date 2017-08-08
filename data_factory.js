@@ -3,12 +3,25 @@ var Connection = require('mongodb').Connection;
 var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
+var MongoClient = require('mongodb').MongoClient;
+
+
 
 dataFactory = function(db, host, port) {
-  this.db= new Db(db, new Server(host, port, {safe: false}, {auto_reconnect: true}, {}));
-  this.db.open(function(){});
+  // this.db= new Db(db, new Server(host, port, {safe: false}, {auto_reconnect: true}, {}));
+  // this.db.open(function(){});
 };
 
+dataFactory.prototype.mongoTest = function() {
+  // Connect to the db
+  MongoClient.connect("mongodb://localhost:27017/exampleDb", function(err, db) {
+    if(!err) {
+      console.log("We are connected");
+    } else {
+      console.log("bite me!");
+    }
+  });
+};
 
 dataFactory.prototype.getCollection= function(collection, callback) {
   this.db.collection(collection, function(error, data_collection) {
@@ -74,7 +87,7 @@ dataFactory.prototype.update = function(dataId, collection, callback) {
 					datas,
 					function(error, collection) {
 						if(error) callback(error);
-						else callback(null, collection)       
+						else callback(null, collection)
 					});
       }
     });
