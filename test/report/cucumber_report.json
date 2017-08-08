@@ -1,0 +1,289 @@
+[
+  {
+    "id": "new-event",
+    "name": "new event",
+    "description": "All valid events\r\nshould be captured,\r\npersisted,\r\nassociated to a singular identity,\r\nand denormalized back to identity\r\n\r\nWhy:\r\n- Events are the data that fuels our AI\r\n- We support an infinite range of types to try and 3-d model consumer behavior\r\n\r\nRules:\r\n- Every event must be associated to a singular identity and session\r\n\r\nComponents:\r\n  Identity\r\n  Event",
+    "line": 2,
+    "keyword": "Feature",
+    "tags": [
+      {
+        "name": "@event",
+        "line": 1
+      },
+      {
+        "name": "@receive_event",
+        "line": 1
+      }
+    ],
+    "uri": "e:/Projects/Upwork/Marcus/BDD-Automation/features/features/post_event.feature",
+    "elements": [
+      {
+        "name": "",
+        "keyword": "Background",
+        "description": "",
+        "type": "background",
+        "line": 20,
+        "steps": [
+          {
+            "name": "there are Identity records as follows:",
+            "line": 21,
+            "keyword": "Given ",
+            "rows": [
+              {
+                "cells": [
+                  "identityKey"
+                ]
+              },
+              {
+                "cells": [
+                  "TIN_RECORD"
+                ]
+              },
+              {
+                "cells": [
+                  "BRONZE_RECORD"
+                ]
+              },
+              {
+                "cells": [
+                  "GOLD_RECORD"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Valid event received",
+        "id": "new-event;valid-event-received",
+        "line": 28,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@acceptance",
+            "line": 27
+          },
+          {
+            "name": "@valid_event_received",
+            "line": 27
+          },
+          {
+            "name": "@for_testing",
+            "line": 27
+          }
+        ],
+        "steps": [
+          {
+            "name": "there are Identity records as follows:",
+            "line": 21,
+            "keyword": "Given ",
+            "rows": [
+              {
+                "cells": [
+                  "identityKey"
+                ]
+              },
+              {
+                "cells": [
+                  "TIN_RECORD"
+                ]
+              },
+              {
+                "cells": [
+                  "BRONZE_RECORD"
+                ]
+              },
+              {
+                "cells": [
+                  "GOLD_RECORD"
+                ]
+              }
+            ],
+            "result": {
+              "status": "failed",
+              "duration": 3082763,
+              "error_message": "TypeError: Cannot read property 'connect' of undefined\n    at checkWhetherRecordsPresent (e:\\Projects\\Upwork\\Marcus\\BDD-Automation\\features\\features\\step_definitions\\step_definition.js:64:13)\n    at World.<anonymous> (e:\\Projects\\Upwork\\Marcus\\BDD-Automation\\features\\features\\step_definitions\\step_definition.js:77:9)\n    at _combinedTickCallback (internal/process/next_tick.js:67:7)\n    at process._tickCallback (internal/process/next_tick.js:98:9)\n    at Module.runMain (module.js:606:11)"
+            },
+            "match": {
+              "location": "e:\\Projects\\Upwork\\Marcus\\BDD-Automation\\features\\features\\step_definitions\\step_definition.js:76"
+            }
+          },
+          {
+            "name": "a valid new Event is received",
+            "line": 29,
+            "keyword": "When ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "e:\\Projects\\Upwork\\Marcus\\BDD-Automation\\features\\features\\step_definitions\\step_definition.js:118"
+            }
+          },
+          {
+            "name": "save the Event",
+            "line": 30,
+            "keyword": "Then ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "e:\\Projects\\Upwork\\Marcus\\BDD-Automation\\features\\features\\step_definitions\\step_definition.js:244"
+            }
+          },
+          {
+            "name": "update Identity with Event",
+            "line": 31,
+            "keyword": "And ",
+            "result": {
+              "status": "skipped"
+            },
+            "match": {
+              "location": "e:\\Projects\\Upwork\\Marcus\\BDD-Automation\\features\\features\\step_definitions\\step_definition.js:248"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "upsert-identity",
+    "name": "upsert identity",
+    "description": "Whenever data is received about a user\r\nwhether from external source\r\nor from other internal process\r\nit should be upserted\r\nto the proper, medaled user / identity record\r\n\r\nWhy:\r\n- What we know about users underpins the ability to respond to them\r\n\r\nRules:\r\n- ...\r\n\r\nComponents:\r\n  Identity\r\n  Event\r\n  Dialog",
+    "line": 2,
+    "keyword": "Feature",
+    "tags": [
+      {
+        "name": "@identity",
+        "line": 1
+      },
+      {
+        "name": "@identity_post",
+        "line": 1
+      }
+    ],
+    "uri": "e:/Projects/Upwork/Marcus/BDD-Automation/features/features/post_identity.feature",
+    "elements": [
+      {
+        "name": "",
+        "keyword": "Background",
+        "description": "",
+        "type": "background",
+        "line": 20,
+        "steps": [
+          {
+            "name": "there are Identity records as follows:",
+            "line": 21,
+            "keyword": "Given ",
+            "rows": [
+              {
+                "cells": [
+                  "identityKey"
+                ]
+              },
+              {
+                "cells": [
+                  "TIN_RECORD"
+                ]
+              },
+              {
+                "cells": [
+                  "BRONZE_RECORD"
+                ]
+              },
+              {
+                "cells": [
+                  "GOLD_RECORD"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Update received for Identity \"custom\" field",
+        "id": "upsert-identity;update-received-for-identity-\"custom\"-field",
+        "line": 28,
+        "keyword": "Scenario",
+        "description": "",
+        "type": "scenario",
+        "tags": [
+          {
+            "name": "@for_testing",
+            "line": 27
+          }
+        ],
+        "steps": [
+          {
+            "name": "there are Identity records as follows:",
+            "line": 21,
+            "keyword": "Given ",
+            "rows": [
+              {
+                "cells": [
+                  "identityKey"
+                ]
+              },
+              {
+                "cells": [
+                  "TIN_RECORD"
+                ]
+              },
+              {
+                "cells": [
+                  "BRONZE_RECORD"
+                ]
+              },
+              {
+                "cells": [
+                  "GOLD_RECORD"
+                ]
+              }
+            ],
+            "result": {
+              "status": "failed",
+              "duration": 822327,
+              "error_message": "TypeError: Cannot read property 'connect' of undefined\n    at checkWhetherRecordsPresent (e:\\Projects\\Upwork\\Marcus\\BDD-Automation\\features\\features\\step_definitions\\step_definition.js:64:13)\n    at World.<anonymous> (e:\\Projects\\Upwork\\Marcus\\BDD-Automation\\features\\features\\step_definitions\\step_definition.js:77:9)\n    at _combinedTickCallback (internal/process/next_tick.js:67:7)\n    at process._tickCallback (internal/process/next_tick.js:98:9)\n    at Module.runMain (module.js:606:11)"
+            },
+            "match": {
+              "location": "e:\\Projects\\Upwork\\Marcus\\BDD-Automation\\features\\features\\step_definitions\\step_definition.js:76"
+            }
+          },
+          {
+            "name": "an Identity update is received for a non-matching field",
+            "line": 29,
+            "keyword": "When ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "upsert an Identity tin record",
+            "line": 30,
+            "keyword": "Then ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "push update to all medal Identity views",
+            "line": 31,
+            "keyword": "And ",
+            "result": {
+              "status": "undefined"
+            }
+          },
+          {
+            "name": "push Identity rollup to related services",
+            "line": 32,
+            "keyword": "And ",
+            "result": {
+              "status": "undefined"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

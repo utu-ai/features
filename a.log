@@ -1,0 +1,834 @@
+Running "jshint:all" (jshint) task
+>> 2 files lint free.
+
+Running "exec:run_cucumber_tests" (exec) task
+[36m@dialog @receive_message[39m
+Feature: new message
+
+  All valid messages
+  should be captured in their raw form
+  persisted
+  and then denorm'd to all related services
+
+  Why:
+  - we can run sentiment models on user's text to evaluate their state of mind
+  - in the future, we will likely get in the intent business ourselves.  having the raw data will be useful.
+  - in any consumer analytics environment, hold on to ALL the data you can, for as LONG as you can.
+
+  Rules:
+  - the inbound message must containt a bot key (which kong decodes to org and botId) as well as p/pId
+
+  [36m@acceptance @valid_message_received[39m
+  Scenario: Received valid message from existing user for active dialog
+    [33mGiven there are Identity records as follows:[39m
+      | [33midentityKey  [39m |
+      | [33mTIN_RECORD   [39m |
+      | [33mBRONZE_RECORD[39m |
+      | [33mGOLD_RECORD  [39m |
+    [33mAnd there are Dialog records as follows:[39m
+      | [33mdialogKey    [39m |
+      | [33mDIALOG_RECORD[39m |
+    [33mWhen a valid new message is received for an existing user who is actively dialoging[39m
+    [33mThen save the Message[39m
+    [33mAnd update Dialog with Message[39m
+    [33mAnd update Identity with Message[39m
+    [33mAnd create a summarized Event for Message[39m
+
+  [36m@acceptance @valid_message_received[39m
+  Scenario: Received valid message from existing user for new dialog
+    [33mGiven there are Identity records as follows:[39m
+      | [33midentityKey  [39m |
+      | [33mTIN_RECORD   [39m |
+      | [33mBRONZE_RECORD[39m |
+      | [33mGOLD_RECORD  [39m |
+    [33mAnd there are Dialog records as follows:[39m
+      | [33mdialogKey    [39m |
+      | [33mDIALOG_RECORD[39m |
+    [33mWhen a valid new message is received for an existing user starting a new dialog[39m
+    [33mThen save the Message[39m
+    [33mAnd update Dialog with Message[39m
+    [33mAnd update Identity with Message[39m
+    [33mAnd create a summarized Event for Message[39m
+
+  [36m@acceptance @valid_message_received[39m
+  Scenario: Received valid message from new user
+    [33mGiven there are Identity records as follows:[39m
+      | [33midentityKey  [39m |
+      | [33mTIN_RECORD   [39m |
+      | [33mBRONZE_RECORD[39m |
+      | [33mGOLD_RECORD  [39m |
+    [33mAnd there are Dialog records as follows:[39m
+      | [33mdialogKey    [39m |
+      | [33mDIALOG_RECORD[39m |
+    [33mWhen a valid new message is received from a new user[39m
+    [33mThen save the Message[39m
+    [33mAnd update Dialog with Message[39m
+    [33mAnd update Identity with Message[39m
+    [33mAnd create a summarized Event for Message[39m
+
+[36m@event @custom_algo[39m
+Feature: event triggers custom algo
+
+  Every time an event is added
+  check if there if a custom algo
+  has been mapped to a mutated fieldz
+
+  Why:
+  - Modeling data can unleash its true potential
+  - Reacting to data mutations in realtime creates numerous applications
+
+  Rules:
+  - Every event must be associated to a singular identity and session
+
+  [36m@acceptance @custom_algo @event @custom_algo[39m
+  Scenario Outline: Event field mutation triggers custom algo to run
+    [33mGiven there are EventAlgo mappings as follows:[39m
+      | [33meventAlgoKey[39m |
+      | [33mALGO_MAP_REC[39m |
+    [33mWhen an Event of type Order containing an orderValue is received[39m
+    [33mThen the associated Algo should fire[39m
+
+[36m@event @receive_event[39m
+Feature: new event
+
+  All valid events
+  should be captured,
+  persisted,
+  associated to a singular identity,
+  and denormalized back to identity
+
+  Why:
+  - Events are the data that fuels our AI
+  - We support an infinite range of types to try and 3-d model consumer behavior
+
+  Rules:
+  - Every event must be associated to a singular identity and session
+
+  [36m@acceptance @valid_event_received @for_testing[39m
+  Scenario: Valid event received
+    [33mGiven there are Identity records as follows:[39m
+      | [33midentityKey  [39m |
+      | [33mTIN_RECORD   [39m |
+      | [33mBRONZE_RECORD[39m |
+      | [33mGOLD_RECORD  [39m |
+    [33mWhen a valid new Event is received[39m
+    [33mThen save the Event[39m
+    [33mAnd update Identity with Event[39m
+
+[36m@identity @identity_post[39m
+Feature: alias identity
+
+  One off condition.  Used when a known foreignId wants to be applied
+  directly against a known tin (a.k.a. identityId).
+
+  Why:
+  - Cross linking match keys is one of the most important things we can do.
+
+  Rules:
+  - ...
+
+  [36m@acceptance[39m
+  Scenario: Alias called for a known identity
+    [33mGiven there are Identity records as follows:[39m
+      | [33midentityKey  [39m |
+      | [33mTIN_RECORD   [39m |
+      | [33mBRONZE_RECORD[39m |
+      | [33mGOLD_RECORD  [39m |
+    [36mWhen an aliased foreignId is received[39m
+    [36mThen review medal match when upserting an Identity tin record[39m
+    [36mAnd push update to all medal Identity views[39m
+    [36mAnd push impacted Identity rollup to related services[39m
+
+[36m@identity @identity_get[39m
+Feature: Search identity
+
+  With proper credentials
+  return the proper view of an identity
+  scoped to tin, bronze, gold, or silver
+
+  Why:
+  - tons of applications of how we could externalize what we know about an identity for 3rd party services
+
+  Rules:
+  - need to be very locked down to make sure we only give access to proper requests.  Fatal place for leaks.
+
+  [36m@acceptance @identity @identity_get[39m
+  Scenario Outline: Updare received for Identity "match" field
+    [33mGiven there are Identity records as follows:[39m
+      | [33midentityKey  [39m |
+      | [33mTIN_RECORD   [39m |
+      | [33mBRONZE_RECORD[39m |
+      | [33mGOLD_RECORD  [39m |
+    [36mGiven request contains botKey with right access level[39m
+    [36mWhen an Identity search request by tinId for tin type is received[39m
+    [36mThen return the requested Identity record(s) or an appropriate response[39m
+
+  [36m@acceptance @identity @identity_get[39m
+  Scenario Outline: Updare received for Identity "match" field
+    [33mGiven there are Identity records as follows:[39m
+      | [33midentityKey  [39m |
+      | [33mTIN_RECORD   [39m |
+      | [33mBRONZE_RECORD[39m |
+      | [33mGOLD_RECORD  [39m |
+    [36mGiven request contains botKey with right access level[39m
+    [36mWhen an Identity search request by email for bronze type is received[39m
+    [36mThen return the requested Identity record(s) or an appropriate response[39m
+
+  [36m@acceptance @identity @identity_get[39m
+  Scenario Outline: Updare received for Identity "match" field
+    [33mGiven there are Identity records as follows:[39m
+      | [33midentityKey  [39m |
+      | [33mTIN_RECORD   [39m |
+      | [33mBRONZE_RECORD[39m |
+      | [33mGOLD_RECORD  [39m |
+    [36mGiven request contains botKey with right access level[39m
+    [36mWhen an Identity search request by browserId for silver type is received[39m
+    [36mThen return the requested Identity record(s) or an appropriate response[39m
+
+  [36m@acceptance @identity @identity_get[39m
+  Scenario Outline: Updare received for Identity "match" field
+    [33mGiven there are Identity records as follows:[39m
+      | [33midentityKey  [39m |
+      | [33mTIN_RECORD   [39m |
+      | [33mBRONZE_RECORD[39m |
+      | [33mGOLD_RECORD  [39m |
+    [36mGiven request contains botKey with right access level[39m
+    [36mWhen an Identity search request by p + pid for gold type is received[39m
+    [36mThen return the requested Identity record(s) or an appropriate response[39m
+
+  [36m@acceptance @identity @identity_get[39m
+  Scenario Outline: Updare received for Identity "match" field
+    [33mGiven there are Identity records as follows:[39m
+      | [33midentityKey  [39m |
+      | [33mTIN_RECORD   [39m |
+      | [33mBRONZE_RECORD[39m |
+      | [33mGOLD_RECORD  [39m |
+    [36mGiven request contains botKey with right access level[39m
+    [36mWhen an Identity search request by foreignId for undefined type is received[39m
+    [36mThen return the requested Identity record(s) or an appropriate response[39m
+
+  [36m@acceptance @identity @identity_get[39m
+  Scenario Outline: Updare received for Identity "match" field
+    [33mGiven there are Identity records as follows:[39m
+      | [33midentityKey  [39m |
+      | [33mTIN_RECORD   [39m |
+      | [33mBRONZE_RECORD[39m |
+      | [33mGOLD_RECORD  [39m |
+    [36mGiven request contains botKey with right access level[39m
+    [36mWhen an Identity search request by phone for undefined type is received[39m
+    [36mThen return the requested Identity record(s) or an appropriate response[39m
+
+[36m@identity @identity_post[39m
+Feature: upsert identity
+
+  Whenever data is received about a user
+  whether from external source
+  or from other internal process
+  it should be upserted
+  to the proper, medaled user / identity record
+
+  Why:
+  - What we know about users underpins the ability to respond to them
+
+  Rules:
+  - ...
+
+  [36m@acceptance[39m
+  Scenario: Update received for Identity "custom" field
+    [33mGiven there are Identity records as follows:[39m
+      | [33midentityKey  [39m |
+      | [33mTIN_RECORD   [39m |
+      | [33mBRONZE_RECORD[39m |
+      | [33mGOLD_RECORD  [39m |
+    [36mWhen an Identity update is received for a non-matching field[39m
+    [36mThen upsert an Identity tin record[39m
+    [36mAnd push update to all medal Identity views[39m
+    [36mAnd push Identity rollup to related services[39m
+
+[36m@makenu[39m
+Feature: universal browserId request
+
+  Provide cross domain browser tracking
+  store Id in utu.ai domain cookie
+  retrieve or set on demand
+  return Id to requestor
+  to store in local domain
+
+  Why:
+  - lets us track browsers directly and cross domain synch
+
+  Rules:
+  - ...
+
+  Components:
+    WebSDK
+    Makenu
+
+  [36m@acceptance[39m
+  Scenario: Request received to provide cookieId for given browser
+    [33mGiven request originates from a taggable browser[39m
+    [33mWhen request made for uTu.ai browserId[39m
+    [33mThen the browser should be tagged for the utu.ai domain[39m
+    [33mAnd uTu.ai cookieId should be returned[39m
+
+[36m@makenu[39m
+Feature: conversant link tracker
+
+  any link we present via a dialog
+  we will shorten the link
+  proxy any clicks that it gets
+  and cookie the browser
+
+  Why:
+  - this is one way we can match a conversant key to a digital one
+  - enables us to show digital behavior tied to a click
+
+  Rules:
+  - ...
+
+  Components:
+    Identity
+    Makenu
+
+  [36m@acceptance[39m
+  Scenario: NOT first click
+    [33mWhen the dialog link is clicked[39m
+    [33mThen the browser should be tagged for the utu.ai domain[39m
+
+  [36m@acceptance[39m
+  Scenario: First click alias
+    [33mGiven dialog rendered link has NOT been clicked[39m
+    [33mAnd there is only one participant in the dialog[39m
+    [33mWhen the dialog link is clicked[39m
+    [33mThen the browser should be tagged for the utu.ai domain[39m
+    [33mAnd the browserId should be aliased to the dialog identity[39m
+
+[36m@makenu[39m
+Feature: success pixel tracker
+
+  provide a success pixel to clients
+  for conversion tracking
+  on target sites or pages
+
+  Why:
+  - verify that a desired action took place post the dialog
+
+  Rules:
+  - ...
+
+  Components:
+    Makenu
+
+  [36m@acceptance[39m
+  Scenario: success pixel click
+    [33mGiven the uTu success pixel has been deployed on a client site[39m
+    [33mWhen the success pixel is clicked[39m
+    [33mThen the browser should be tagged for the utu.ai domain[39m
+
+Warnings:
+
+1) Background:
+   Step: [1mGiven there are Identity records as follows:[22m - [90mfeatures\dialog\post_message.feature:17[39m
+   Message:
+     [33mUndefined. Implement with the following snippet:
+
+       this.Given(/^there are Identity records as follows:$/, function (table, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });[39m
+
+2) Background:
+   Step: [1mAnd there are Dialog records as follows:[22m - [90mfeatures\dialog\post_message.feature:22[39m
+   Message:
+     [33mUndefined. Implement with the following snippet:
+
+       this.Given(/^there are Dialog records as follows:$/, function (table, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });[39m
+
+3) Scenario: [1mReceived valid message from existing user for active dialog[22m - [90mfeatures\dialog\post_message.feature:27[39m
+   Step: [1mWhen a valid new message is received for an existing user who is actively dialoging[22m - [90mfeatures\dialog\post_message.feature:28[39m
+   Message:
+     [33mUndefined. Implement with the following snippet:
+
+       this.When(/^a valid new message is received for an existing user who is actively dialoging$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });[39m
+
+4) Scenario: [1mReceived valid message from existing user for active dialog[22m - [90mfeatures\dialog\post_message.feature:27[39m
+   Step: [1mThen save the Message[22m - [90mfeatures\dialog\post_message.feature:29[39m
+   Message:
+     [33mUndefined. Implement with the following snippet:
+
+       this.Then(/^save the Message$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });[39m
+
+5) Scenario: [1mReceived valid message from existing user for active dialog[22m - [90mfeatures\dialog\post_message.feature:27[39m
+   Step: [1mAnd update Dialog with Message[22m - [90mfeatures\dialog\post_message.feature:30[39m
+   Message:
+     [33mUndefined. Implement with the following snippet:
+
+       this.Then(/^update Dialog with Message$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });[39m
+
+6) Scenario: [1mReceived valid message from existing user for active dialog[22m - [90mfeatures\dialog\post_message.feature:27[39m
+   Step: [1mAnd update Identity with Message[22m - [90mfeatures\dialog\post_message.feature:31[39m
+   Message:
+     [33mUndefined. Implement with the following snippet:
+
+       this.Then(/^update Identity with Message$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });[39m
+
+7) Scenario: [1mReceived valid message from existing user for active dialog[22m - [90mfeatures\dialog\post_message.feature:27[39m
+   Step: [1mAnd create a summarized Event for Message[22m - [90mfeatures\dialog\post_message.feature:32[39m
+   Message:
+     [33mUndefined. Implement with the following snippet:
+
+       this.Then(/^create a summarized Event for Message$/, function (callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });[39m
+
+8) Background:
+   Step: [1mGiven there are Identity records as follows:[22m - [90mfeatures\dialog\post_message.feature:17[39m
+   Message:
+     [33mUndefined. Implement with the following snippet:
+
+       this.Given(/^there are Identity records as follows:$/, function (table, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });[39m
+
+9) Background:
+   Step: [1mAnd there are Dialog records as follows:[22m - [90mfeatures\dialog\post_message.feature:22[39m
+   Message:
+     [33mUndefined. Implement with the following snippet:
+
+       this.Given(/^there are Dialog records as follows:$/, function (table, callback) {
+         // Write code here that turns the phrase above into concrete actions
+         callback(null, 'pending');
+       });[39m
+
+10) Scenario: [1mReceived valid message from existing user for new dialog[22m - [90mfeatures\dialog\post_message.feature:35[39m
+    Step: [1mWhen a valid new message is received for an existing user starting a new dialog[22m - [90mfeatures\dialog\post_message.feature:36[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.When(/^a valid new message is received for an existing user starting a new dialog$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+11) Scenario: [1mReceived valid message from existing user for new dialog[22m - [90mfeatures\dialog\post_message.feature:35[39m
+    Step: [1mThen save the Message[22m - [90mfeatures\dialog\post_message.feature:37[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^save the Message$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+12) Scenario: [1mReceived valid message from existing user for new dialog[22m - [90mfeatures\dialog\post_message.feature:35[39m
+    Step: [1mAnd update Dialog with Message[22m - [90mfeatures\dialog\post_message.feature:38[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^update Dialog with Message$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+13) Scenario: [1mReceived valid message from existing user for new dialog[22m - [90mfeatures\dialog\post_message.feature:35[39m
+    Step: [1mAnd update Identity with Message[22m - [90mfeatures\dialog\post_message.feature:39[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^update Identity with Message$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+14) Scenario: [1mReceived valid message from existing user for new dialog[22m - [90mfeatures\dialog\post_message.feature:35[39m
+    Step: [1mAnd create a summarized Event for Message[22m - [90mfeatures\dialog\post_message.feature:40[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^create a summarized Event for Message$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+15) Background:
+    Step: [1mGiven there are Identity records as follows:[22m - [90mfeatures\dialog\post_message.feature:17[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^there are Identity records as follows:$/, function (table, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+16) Background:
+    Step: [1mAnd there are Dialog records as follows:[22m - [90mfeatures\dialog\post_message.feature:22[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^there are Dialog records as follows:$/, function (table, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+17) Scenario: [1mReceived valid message from new user[22m - [90mfeatures\dialog\post_message.feature:43[39m
+    Step: [1mWhen a valid new message is received from a new user[22m - [90mfeatures\dialog\post_message.feature:44[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.When(/^a valid new message is received from a new user$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+18) Scenario: [1mReceived valid message from new user[22m - [90mfeatures\dialog\post_message.feature:43[39m
+    Step: [1mThen save the Message[22m - [90mfeatures\dialog\post_message.feature:45[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^save the Message$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+19) Scenario: [1mReceived valid message from new user[22m - [90mfeatures\dialog\post_message.feature:43[39m
+    Step: [1mAnd update Dialog with Message[22m - [90mfeatures\dialog\post_message.feature:46[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^update Dialog with Message$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+20) Scenario: [1mReceived valid message from new user[22m - [90mfeatures\dialog\post_message.feature:43[39m
+    Step: [1mAnd update Identity with Message[22m - [90mfeatures\dialog\post_message.feature:47[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^update Identity with Message$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+21) Scenario: [1mReceived valid message from new user[22m - [90mfeatures\dialog\post_message.feature:43[39m
+    Step: [1mAnd create a summarized Event for Message[22m - [90mfeatures\dialog\post_message.feature:48[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^create a summarized Event for Message$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+22) Background:
+    Step: [1mGiven there are EventAlgo mappings as follows:[22m - [90mfeatures\event\custom_algo.feature:15[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^there are EventAlgo mappings as follows:$/, function (table, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+23) Scenario: [1mEvent field mutation triggers custom algo to run[22m - [90mfeatures\event\custom_algo.feature:26[39m
+    Step: [1mWhen an Event of type Order containing an orderValue is received[22m - [90mfeatures\event\custom_algo.feature:21[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.When(/^an Event of type (.*) containing an (.*) is received$/, function (eType, matchKey, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+24) Scenario: [1mEvent field mutation triggers custom algo to run[22m - [90mfeatures\event\custom_algo.feature:26[39m
+    Step: [1mThen the associated Algo should fire[22m - [90mfeatures\event\custom_algo.feature:22[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^the associated Algo should fire$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+25) Background:
+    Step: [1mGiven there are Identity records as follows:[22m - [90mfeatures\event\post_event.feature:17[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^there are Identity records as follows:$/, function (table, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+26) Scenario: [1mValid event received[22m - [90mfeatures\event\post_event.feature:24[39m
+    Step: [1mWhen a valid new Event is received[22m - [90mfeatures\event\post_event.feature:25[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.When(/^a valid new Event is received$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+27) Scenario: [1mValid event received[22m - [90mfeatures\event\post_event.feature:24[39m
+    Step: [1mThen save the Event[22m - [90mfeatures\event\post_event.feature:26[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^save the Event$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+28) Scenario: [1mValid event received[22m - [90mfeatures\event\post_event.feature:24[39m
+    Step: [1mAnd update Identity with Event[22m - [90mfeatures\event\post_event.feature:27[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^update Identity with Event$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+29) Background:
+    Step: [1mGiven there are Identity records as follows:[22m - [90mfeatures\identity\alias_identity.feature:13[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^there are Identity records as follows:$/, function (table, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+30) Background:
+    Step: [1mGiven there are Identity records as follows:[22m - [90mfeatures\identity\get_identity.feature:14[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^there are Identity records as follows:$/, function (table, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+31) Background:
+    Step: [1mGiven there are Identity records as follows:[22m - [90mfeatures\identity\get_identity.feature:14[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^there are Identity records as follows:$/, function (table, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+32) Background:
+    Step: [1mGiven there are Identity records as follows:[22m - [90mfeatures\identity\get_identity.feature:14[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^there are Identity records as follows:$/, function (table, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+33) Background:
+    Step: [1mGiven there are Identity records as follows:[22m - [90mfeatures\identity\get_identity.feature:14[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^there are Identity records as follows:$/, function (table, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+34) Background:
+    Step: [1mGiven there are Identity records as follows:[22m - [90mfeatures\identity\get_identity.feature:14[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^there are Identity records as follows:$/, function (table, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+35) Background:
+    Step: [1mGiven there are Identity records as follows:[22m - [90mfeatures\identity\get_identity.feature:14[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^there are Identity records as follows:$/, function (table, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+36) Background:
+    Step: [1mGiven there are Identity records as follows:[22m - [90mfeatures\identity\post_identity.feature:16[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^there are Identity records as follows:$/, function (table, callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+37) Scenario: [1mRequest received to provide cookieId for given browser[22m - [90mfeatures\makenu\browserId_makenu.feature:20[39m
+    Step: [1mGiven request originates from a taggable browser[22m - [90mfeatures\makenu\browserId_makenu.feature:21[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^request originates from a taggable browser$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+38) Scenario: [1mRequest received to provide cookieId for given browser[22m - [90mfeatures\makenu\browserId_makenu.feature:20[39m
+    Step: [1mWhen request made for uTu.ai browserId[22m - [90mfeatures\makenu\browserId_makenu.feature:22[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.When(/^request made for uTu\.ai browserId$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+39) Scenario: [1mRequest received to provide cookieId for given browser[22m - [90mfeatures\makenu\browserId_makenu.feature:20[39m
+    Step: [1mThen the browser should be tagged for the utu.ai domain[22m - [90mfeatures\makenu\browserId_makenu.feature:23[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^the browser should be tagged for the utu\.ai domain$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+40) Scenario: [1mRequest received to provide cookieId for given browser[22m - [90mfeatures\makenu\browserId_makenu.feature:20[39m
+    Step: [1mAnd uTu.ai cookieId should be returned[22m - [90mfeatures\makenu\browserId_makenu.feature:24[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^uTu\.ai cookieId should be returned$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+41) Scenario: [1mNOT first click[22m - [90mfeatures\makenu\click_track_makenu.feature:20[39m
+    Step: [1mWhen the dialog link is clicked[22m - [90mfeatures\makenu\click_track_makenu.feature:21[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.When(/^the dialog link is clicked$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+42) Scenario: [1mNOT first click[22m - [90mfeatures\makenu\click_track_makenu.feature:20[39m
+    Step: [1mThen the browser should be tagged for the utu.ai domain[22m - [90mfeatures\makenu\click_track_makenu.feature:22[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^the browser should be tagged for the utu\.ai domain$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+43) Scenario: [1mFirst click alias[22m - [90mfeatures\makenu\click_track_makenu.feature:25[39m
+    Step: [1mGiven dialog rendered link has NOT been clicked[22m - [90mfeatures\makenu\click_track_makenu.feature:26[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^dialog rendered link has NOT been clicked$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+44) Scenario: [1mFirst click alias[22m - [90mfeatures\makenu\click_track_makenu.feature:25[39m
+    Step: [1mAnd there is only one participant in the dialog[22m - [90mfeatures\makenu\click_track_makenu.feature:27[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^there is only one participant in the dialog$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+45) Scenario: [1mFirst click alias[22m - [90mfeatures\makenu\click_track_makenu.feature:25[39m
+    Step: [1mWhen the dialog link is clicked[22m - [90mfeatures\makenu\click_track_makenu.feature:28[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.When(/^the dialog link is clicked$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+46) Scenario: [1mFirst click alias[22m - [90mfeatures\makenu\click_track_makenu.feature:25[39m
+    Step: [1mThen the browser should be tagged for the utu.ai domain[22m - [90mfeatures\makenu\click_track_makenu.feature:29[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^the browser should be tagged for the utu\.ai domain$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+47) Scenario: [1mFirst click alias[22m - [90mfeatures\makenu\click_track_makenu.feature:25[39m
+    Step: [1mAnd the browserId should be aliased to the dialog identity[22m - [90mfeatures\makenu\click_track_makenu.feature:30[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^the browserId should be aliased to the dialog identity$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+48) Scenario: [1msuccess pixel click[22m - [90mfeatures\makenu\success_pixel_makenu.feature:17[39m
+    Step: [1mGiven the uTu success pixel has been deployed on a client site[22m - [90mfeatures\makenu\success_pixel_makenu.feature:18[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Given(/^the uTu success pixel has been deployed on a client site$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+49) Scenario: [1msuccess pixel click[22m - [90mfeatures\makenu\success_pixel_makenu.feature:17[39m
+    Step: [1mWhen the success pixel is clicked[22m - [90mfeatures\makenu\success_pixel_makenu.feature:19[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.When(/^the success pixel is clicked$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+50) Scenario: [1msuccess pixel click[22m - [90mfeatures\makenu\success_pixel_makenu.feature:17[39m
+    Step: [1mThen the browser should be tagged for the utu.ai domain[22m - [90mfeatures\makenu\success_pixel_makenu.feature:20[39m
+    Message:
+      [33mUndefined. Implement with the following snippet:
+
+        this.Then(/^the browser should be tagged for the utu\.ai domain$/, function (callback) {
+          // Write code here that turns the phrase above into concrete actions
+          callback(null, 'pending');
+        });[39m
+
+17 scenarios ([33m17 undefined[39m)
+76 steps ([33m50 undefined[39m, [36m26 skipped[39m)
+0m00.000s
+
+Done.
