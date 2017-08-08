@@ -12,6 +12,7 @@ var restFactory = function restFactory(callback) {
 
   this.message = function(name){
       console.info('Hello '+ name);
+      callback();
   }
 
   this.get = function(path, callback) {

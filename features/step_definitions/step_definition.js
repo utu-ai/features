@@ -2,8 +2,9 @@
 
 var expect = require('chai').expect;
 var identifier = null;
-var restFactory = require("../../rest_factory");
-
+var restFactory = require('../../rest_factory');
+var dataFactory = require('../../data_factory');
+var Crud = require('node-mongo-crud').Crud;
 // Public Api:
 // https://makenu.utu.ai/v1/browser-id
 // header:
@@ -55,11 +56,17 @@ var restFactory = require("../../rest_factory");
 
 module.exports = function() {
 
-    var checkWhetherRecordsPresent = function(){
+    var checkWhetherRecordsPresent = function(callback){
         // Call the mongoDB and check whether the table contents are present in the database MongoDB utility
+        var hostname = "ds129143.mlab.com";
+        var port = "29143";
+        var database = "rajesh-test";
+        console.log("I am here...");
+        
+        dataFactory.findAll(callback());
         // If not, insert the contents into the database
         // then validate true to complete this step.
-        this.restFactory.message('Rajesh');
+        //this.restFactory.message('Rajesh');
     };
 
     this.Given(/^requests originate from inside the cluster$/, function (callback) {
@@ -67,8 +74,8 @@ module.exports = function() {
       callback(null, 'pending');
     });
 
-    this.Given(/^there are Identity records as follows:$/, function (table) {
-        checkWhetherRecordsPresent();
+    this.Given(/^there are Identity records as follows:$/, function (callback,table) {
+        checkWhetherRecordsPresent(callback);
     });
 
     this.Given(/^there are EventAlgo mappings as follows:$/, function (table, callback) {
@@ -95,8 +102,8 @@ module.exports = function() {
          callback(null, 'pending');
     });
 
-    this.Given(/^there are Dialog records as follows:$/, function (table) {
-        checkWhetherRecordsPresent();
+    this.Given(/^there are Dialog records as follows:$/, function (callback,table) {
+        checkWhetherRecordsPresent(callback);
     });
 
     this.When(/^request received for a bots apiKey$/, function (callback) {

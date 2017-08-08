@@ -23,6 +23,8 @@
     "request": "~2.27.0",
     "rest-assured": "^0.1.0",
     "sanitize-filename": "^1.6.0",
-    "selenium-webdriver": "^2.53.2"
+    "selenium-webdriver": "^2.53.2",
+    "mongodb":"latest",
+    "node-mongo-crud":"^0.3.0"
   }
 }

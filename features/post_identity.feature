@@ -24,7 +24,7 @@ Background:
     | BRONZE_RECORD  |
     | GOLD_RECORD    |
 
-@acceptance
+@for_testing
 Scenario: Update received for Identity "custom" field
     When an Identity update is received for a non-matching field
     Then upsert an Identity tin record
