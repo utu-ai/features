@@ -1,0 +1,8 @@
+mongodb://cucumber.utu.ai:27018/?3t.certificatePreference=RootCACert:from_file&3t.connectTimeout=10000&3t.rootCAPath=/Users/tewks/projects/ca.crt&3t.uriVersion=2&3t.connection.name=cucumber-testing+%28DNS%29&3t.connectionMode=direct&3t.useClientCertPassword=false&readPreference=primary&ssl=true&3t.socketTimeout=0
+
+mongodb://cucumber.utu.ai:27018/utu?certificatePreference=RootCACert:from_file&rootCAPath=/Users/tewks/projects/ca.crt&y&ssl=true
+
+url format:
+mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
+
+mongodb://cucumber.utu.ai:27018/?ssl=true&certificatePreference=RootCACert:from_file&rootCAPath=ca.crt

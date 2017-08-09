@@ -11,6 +11,7 @@ function dataFactory (user, pwd, host, db) {
   connStr = connStr + pwd + "@";
   connStr = connStr + host + "/";
   connStr = connStr + db;
+  connStr = "mongodb://cucumber.utu.ai:27018/?ssl=true&certificatePreference=RootCACert:from_file&rootCAPath=ca.crt"
   console.log(connStr);
   // MongoClient.connect("mongodb://rajesh:test1234@ds129143.mlab.com:29143/rajesh-test", function(err, db) {
   MongoClient.connect(connStr, function(err, db) {

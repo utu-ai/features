@@ -24,18 +24,12 @@ Feature: new event
 
   [36m@acceptance @valid_event_received @for_testing[39m
   Scenario: Valid event received
-fun1
-Person
-Person
-fun2
-in name
-mongodb://rajesh:test1234@ds129143.mlab.com:29143/rajesh-test
+mongodb://cucumber.utu.ai:27018/?ssl=true&certificatePreference=RootCACert:from_file&rootCAPath=ca.crt
     [32mGiven there are Identity records as follows:[39m
       | [32midentityKey  [39m |
       | [32mTIN_RECORD   [39m |
       | [32mBRONZE_RECORD[39m |
       | [32mGOLD_RECORD  [39m |
-We are connected
 DF - We are connected
     [31mWhen a valid new Event is received[39m
     [36mThen save the Event[39m
@@ -45,13 +39,13 @@ Failures:
 
 1) Scenario: [1mValid event received[22m - [90mfeatures/event_post.feature:28[39m
    Step: [1mWhen a valid new Event is received[22m - [90mfeatures/event_post.feature:29[39m
-   Step Definition: [90mfeatures/step_definitions/step_definition.js:124[39m
+   Step Definition: [90mfeatures/step_definitions/step_definition.js:116[39m
    Message:
      [31mfunction timed out after 5000 milliseconds[39m
 
 1 scenario ([31m1 failed[39m)
 4 steps ([31m1 failed[39m, [36m2 skipped[39m, [32m1 passed[39m)
-0m05.023s
+0m05.033s
 >> Exited with code: 1.
 Warning: Task "exec:run_cucumber_tests" failed. Use --force to continue.
 
