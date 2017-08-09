@@ -1,12 +1,11 @@
 'use strict';
-// import cow from '../../my_factory.js';
-
 
 var expect = require('chai').expect;
 var identifier = null;
 var restFactory = require("../../rest_factory");
-// var dataFactory = require("../../data_factory");
+var DF = require("../../data_factory");
 var cow = require("../../my_factory");
+// var dog =
 
 // Public Api:
 // https://makenu.utu.ai/v1/browser-id
@@ -65,7 +64,10 @@ module.exports = function() {
         // then validate true to complete this step.
         // this.restFactory.message('Rajesh');
         // myFactory.mongoTest();
-        cow.speak();
+        var me = new cow.Person("first", "last", "blue", "poop");
+        cow.myFunc2();
+        me.name();
+        var dataFactory = new DF.dataFactory("db", "host");
     };
 
     this.Given(/^requests originate from inside the cluster$/, function (callback) {
@@ -74,6 +76,9 @@ module.exports = function() {
     });
 
     this.Given(/^there are Identity records as follows:$/, function (table) {
+        cow.myFunc1();
+        cow.Person("first", "last", "blue", "poop");
+
         checkWhetherRecordsPresent();
     });
 
@@ -116,7 +121,7 @@ module.exports = function() {
     });
 
     this.When(/^a valid new Event is received$/, function (callback) {
-        this.helloWorld.message('Rajesh');
+        // this.helloWorld.message('Rajesh');
         var apiKey = "0475dbadc4cb410bbf562d605ea2cd47";
         var context = {
             platform: "sms",
@@ -128,12 +133,12 @@ module.exports = function() {
             }
         };
 
-        restFactory.post(
-            "/track",
-            apiKey,
-            JSON.stringify(context),
-            callback()
-        );
+        // restFactory.post(
+        //     "/track",
+        //     apiKey,
+        //     JSON.stringify(context),
+        //     callback()
+        // );
     });
 
     this.When(/^an Event of type (.*) containing an (.*) is received$/, function (eType, matchKey, callback) {

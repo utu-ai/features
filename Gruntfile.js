@@ -28,9 +28,15 @@ module.exports = function(grunt) {
       }
     },
 
+    shell: {
+        mongo: {
+            command: 'mongod'
+        }
+    },
+
     exec: {
       run_cucumber_tests: {
-        command: 'node ' + path.join('node_modules', 'cucumber',  'bin', 'cucumber.js -f pretty -t @acceptance')
+        command: 'node ' + path.join('node_modules', 'cucumber',  'bin', 'cucumber.js -f pretty -t @for_testing')
       }
     }
 
@@ -39,6 +45,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-env');
+  grunt.loadNpmTasks('grunt-shell-spawn');
 
   grunt.registerTask('default', ['jshint', 'exec']);
   grunt.registerTask('chrome', ['env:chrome', 'jshint', 'exec']);

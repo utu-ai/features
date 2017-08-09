@@ -1,26 +1,21 @@
-var Db = require('mongodb').Db;
-var Connection = require('mongodb').Connection;
-var Server = require('mongodb').Server;
-var BSON = require('mongodb').BSON;
-var ObjectID = require('mongodb').ObjectID;
+// var Db = require('mongodb').Db;
+// var Connection = require('mongodb').Connection;
+// var Server = require('mongodb').Server;
+// var BSON = require('mongodb').BSON;
+// var ObjectID = require('mongodb').ObjectID;
 var MongoClient = require('mongodb').MongoClient;
 
-
-
-dataFactory = function(db, host, port) {
-  // this.db= new Db(db, new Server(host, port, {safe: false}, {auto_reconnect: true}, {}));
-  // this.db.open(function(){});
-};
-
-dataFactory.prototype.mongoTest = function() {
-  // Connect to the db
-  MongoClient.connect("mongodb://localhost:27017/exampleDb", function(err, db) {
+function dataFactory (db, host) {
+  MongoClient.connect("mongodb://rajesh:test1234@ds129143.mlab.com:29143/rajesh-test", function(err, db) {
     if(!err) {
-      console.log("We are connected");
+      console.log("DF - We are connected");
     } else {
-      console.log("bite me!");
+      console.log(err);
+      console.log("DF - bite me!");
     }
   });
+  // this.db= new Db(db, new Server(host, port, {safe: false}, {auto_reconnect: true}, {}));
+  // this.db.open(function(){});
 };
 
 dataFactory.prototype.getCollection= function(collection, callback) {

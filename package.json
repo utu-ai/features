@@ -24,5 +24,9 @@
     "rest-assured": "^0.1.0",
     "sanitize-filename": "^1.6.0",
     "selenium-webdriver": "^2.53.2"
+  },
+  "dependencies": {
+    "grunt-shell-spawn": "^0.3.10",
+    "mongodb": "^2.2.31"
   }
 }

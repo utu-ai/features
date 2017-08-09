@@ -1,4 +1,6 @@
 'use strict';
+
+var MongoClient = require('mongodb').MongoClient;
 /*
 ** FlowRouter helpers
 */
@@ -36,14 +38,36 @@
 //   }
 // }
 
-var speak = function () {
-  return 'moo'
-}
+var myFunc1 = function() {
+  console.log("fun1");
+};
+var myFunc2 = function() {
+  console.log("fun2");
+  // rajesh:test1234@ds129143.mlab.com:29143/rajesh-test", function(err, db) {
+  // MongoClient.connect("mongodb://"+configuration.MONGO_USER+":"+configuration.MONGO_PWD+"@"+configuration.MONGO_HOST+"/"+configuration.MONGO_DB, function(err, db) {
+  MongoClient.connect("mongodb://rajesh:test1234@ds129143.mlab.com:29143/rajesh-test", function(err, db) {
+    if(!err) {
+      console.log("We are connected");
+    } else {
+      console.log(err);
+      console.log("bite me!");
+    }
+  });
+};
 
-const myFactory = {
-  speak,
-}
+function Person(first, last, age, eyecolor) {
+    this.firstName = first;
+    this.lastName = last;
+    this.age = age;
+    this.eyeColor = eyecolor;
+    console.log("Person");
+};
 
-export default myFactory;
+Person.prototype.name = function() {
+  console.log("in name");
+    return this.firstName + " " + this.lastName
+};
 
-module.exports.myFactory = myFactory;
+exports.Person = Person;
+exports.myFunc2 = myFunc2;
+exports.myFunc1 = myFunc1;
