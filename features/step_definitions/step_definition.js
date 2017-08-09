@@ -1,5 +1,6 @@
 'use strict';
 
+var conf = require('../../configuration');
 var expect = require('chai').expect;
 var identifier = null;
 var restFactory = require("../../rest_factory");
@@ -62,12 +63,7 @@ module.exports = function() {
         // Call the mongoDB and check whether the table contents are present in the database MongoDB utility
         // If not, insert the contents into the database
         // then validate true to complete this step.
-        // this.restFactory.message('Rajesh');
-        // myFactory.mongoTest();
-        var me = new cow.Person("first", "last", "blue", "poop");
-        cow.myFunc2();
-        me.name();
-        var dataFactory = new DF.dataFactory("db", "host");
+        var dataFactory = new DF.dataFactory(conf.MONGO_USER, conf.MONGO_PWD, conf.MONGO_HOST, conf.MONGO_DB);
     };
 
     this.Given(/^requests originate from inside the cluster$/, function (callback) {
@@ -76,9 +72,6 @@ module.exports = function() {
     });
 
     this.Given(/^there are Identity records as follows:$/, function (table) {
-        cow.myFunc1();
-        cow.Person("first", "last", "blue", "poop");
-
         checkWhetherRecordsPresent();
     });
 

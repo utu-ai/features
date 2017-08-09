@@ -5,8 +5,15 @@
 // var ObjectID = require('mongodb').ObjectID;
 var MongoClient = require('mongodb').MongoClient;
 
-function dataFactory (db, host) {
-  MongoClient.connect("mongodb://rajesh:test1234@ds129143.mlab.com:29143/rajesh-test", function(err, db) {
+function dataFactory (user, pwd, host, db) {
+  var connStr = "mongodb://";
+  connStr = connStr + user + ":";
+  connStr = connStr + pwd + "@";
+  connStr = connStr + host + "/";
+  connStr = connStr + db;
+  console.log(connStr);
+  // MongoClient.connect("mongodb://rajesh:test1234@ds129143.mlab.com:29143/rajesh-test", function(err, db) {
+  MongoClient.connect(connStr, function(err, db) {
     if(!err) {
       console.log("DF - We are connected");
     } else {
