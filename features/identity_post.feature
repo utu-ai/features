@@ -31,16 +31,32 @@ Scenario: Update received for Identity "custom" field
      And push update to all medal Identity views
      And push Identity rollup to related services
 
-Scenario Outline: Updare received for Identity "match" field
-    When an Identity update is received with <matchField>
+Scenario: Updare received for Identity "match" field
+    When an Identity update is received with "email"
     Then review medal match when upserting an Identity tin record
      And push update to all medal Identity views
      And push impacted Identity rollup to related services
 
-    Examples:
-    | matchField    |
-    | email         |
-    | phone + first |
-    | browserId     |
-    | p + pid       |
-    | foreignId     |
+Scenario: Updare received for Identity "match" field
+    When an Identity update is received with "phone + first"
+    Then review medal match when upserting an Identity tin record
+     And push update to all medal Identity views
+     And push impacted Identity rollup to related services
+
+Scenario: Updare received for Identity "match" field
+    When an Identity update is received with "browserId"
+    Then review medal match when upserting an Identity tin record
+     And push update to all medal Identity views
+     And push impacted Identity rollup to related services
+	 
+Scenario: Updare received for Identity "match" field
+    When an Identity update is received with "p + pid"
+    Then review medal match when upserting an Identity tin record
+     And push update to all medal Identity views
+     And push impacted Identity rollup to related services
+
+Scenario: Updare received for Identity "match" field
+    When an Identity update is received with "foreignId"
+    Then review medal match when upserting an Identity tin record
+     And push update to all medal Identity views
+     And push impacted Identity rollup to related services

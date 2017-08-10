@@ -21,16 +21,25 @@ Background:
     | GOLD_RECORD    |
 
 @acceptance
-Scenario Outline: Updare received for Identity "match" field
+Scenario: Updare received for Identity "match" field
     Given request contains botKey with right access level
-     When an Identity search request by <matchField> for <medal> type is received
+     When an Identity search request by "tinId" for "tin" type is received
      Then return the requested Identity record(s) or an appropriate response
 
-    Examples:
-    | matchField    | medal  |
-    | tinId         | tin    |
-    | email         | bronze |
-    | browserId     | silver |
-    | p + pid       | gold   |
-    | foreignId     |
-    | phone         |
+	 @acceptance
+Scenario: Updare received for Identity "match" field
+    Given request contains botKey with right access level
+     When an Identity search request by "email" for "bronze" type is received
+     Then return the requested Identity record(s) or an appropriate response
+
+	 @acceptance
+Scenario: Updare received for Identity "match" field
+    Given request contains botKey with right access level
+     When an Identity search request by "browserId" for "silver" type is received
+     Then return the requested Identity record(s) or an appropriate response
+
+	 @acceptance
+Scenario: Updare received for Identity "match" field
+    Given request contains botKey with right access level
+     When an Identity search request by "p + pid" for "gold" type is received
+     Then return the requested Identity record(s) or an appropriate response

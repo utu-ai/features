@@ -21,10 +21,6 @@ Feature: event triggers custom algo
     | ALGO_MAP_REC |
 
   @acceptance @custom_algo
-  Scenario Outline: Event field mutation triggers custom algo to run
-    When an Event of type <eType> containing an <matchKey> is received
+  Scenario: Event field mutation triggers custom algo to run
+    When an Event of type "Order" containing an "orderValue" is received
     Then the associated Algo should fire
-
-    Examples:
-    | eType    | matchKey   |
-    | Order    | orderValue |
