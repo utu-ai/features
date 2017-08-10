@@ -1,54 +1,34 @@
 'use strict';
 
-var path = require('path');
-
+/* jshint -W106 */
 module.exports = function(grunt) {
 
   grunt.initConfig({
-
-    env: {
-      chrome: {
-        PLATFORM: 'CHROME'
-      },
-      firefox: {
-        PLATFORM: 'FIREFOX'
-      },
-      android: {
-        PLATFORM: 'ANDROID'
-      }
-    },
+    pkg: grunt.file.readJSON('package.json'),
 
     jshint: {
-      all: ['Gruntfile.js', 'features/step_definitions/*.js', 'features/support/*.js'],
+      files: ['**/*.js', '.jshintrc', '!node_modules/**/*'],
       options: {
-        node: true,
-        strict: true,
-        globalstrict: true,
-        'esversion':6
+        jshintrc: '.jshintrc'
       }
     },
-
-    shell: {
-        mongo: {
-            command: 'mongod'
-        }
-    },
-
-    exec: {
-      run_cucumber_tests: {
-        command: 'node ' + path.join('node_modules', 'cucumber',  'bin', 'cucumber.js -f pretty -t @for_testing')
+    cucumberjs: {
+      files: 'features',
+      options: {
+        format: 'pretty',
+        tags:'@for_testing'
       }
-    }
+    },
+    watch: {
+      files: ['<%= jshint.files %>', '**/*.feature'],
+      tasks: ['default']
+    },
+  })
 
-  });
+  //grunt.loadNpmTasks('grunt-contrib-jshint')
+  grunt.loadNpmTasks('grunt-cucumber')
+  grunt.loadNpmTasks('grunt-contrib-watch')
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-exec');
-  grunt.loadNpmTasks('grunt-env');
-  grunt.loadNpmTasks('grunt-shell-spawn');
-
-  grunt.registerTask('default', ['jshint', 'exec']);
-  grunt.registerTask('chrome', ['env:chrome', 'jshint', 'exec']);
-  grunt.registerTask('firefox', ['env:firefox', 'jshint', 'exec']);
-
-};
+  grunt.registerTask('default', ['cucumberjs'])
+}
+/* jshint +W106 */

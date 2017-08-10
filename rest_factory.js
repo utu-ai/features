@@ -12,7 +12,7 @@ var restFactory = function restFactory(callback) {
 
   this.message = function(name){
       console.info('Hello '+ name);
-  }
+  };
 
   this.get = function(path, callback) {
     var uri = this.uri(path)
@@ -25,7 +25,7 @@ var restFactory = function restFactory(callback) {
       self.lastResponse = response;
       callback();
     })
-  }
+  };
 
   this.post = function(path, apiKey, requestBody, callback) {
     var uri = this.uri(path)
@@ -46,7 +46,7 @@ var restFactory = function restFactory(callback) {
         callback(null, self.lastResponse.headers.location);
       }
     )
-  }
+  };
 
   this.put = function(path, requestBody, callback) {
     var uri = this.uri(path)
@@ -60,7 +60,7 @@ var restFactory = function restFactory(callback) {
       self.lastResponse = response;
       callback(null, self.lastResponse.headers.locations);
     })
-  }
+  };
 
   this.delete = function(path, callback) {
     var uri = this.uri(path);
@@ -73,7 +73,7 @@ var restFactory = function restFactory(callback) {
       self.lastResponse = response;
       callback();
     })
-  }
+  };
 
   this.options = function(path, callback) {
     var uri = this.uri(path)
@@ -87,13 +87,13 @@ var restFactory = function restFactory(callback) {
       self.lastResponse = response;
       callback();
     })
-  }
+  };
 
   this.uri = function(path) {
     return configuration.BASE_URL + path;
-  }
+  };
 
   callback();
-}
+};
 
 module.exports.restFactory = restFactory;
