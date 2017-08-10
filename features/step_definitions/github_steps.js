@@ -13,7 +13,7 @@ var GithubStepsWrapper = function () {
   //  this.DB = require('../support/db.js').DB;
 
   this.Given(/^there are Identity records as follows:$/, function (table, callback) {
-    this.connect('user', 'db', 'host',callback());
+    this.connect(callback);
     //this.conn('Rajesh');
   });
 
@@ -40,7 +40,7 @@ var GithubStepsWrapper = function () {
   });
 
   this.Then(/^save the Event$/, function (callback) {
-//    var results = this.findAll();
+      var results = this.findAll();
       console.log(this.lastResponse);
       callback();
   });

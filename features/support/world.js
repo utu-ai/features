@@ -13,13 +13,13 @@ var World = function World(callback) {
   this.lastResponse = null;
   this.db = null;
 
-  this.connect = function (user, pwd, host, db, callback) {
-    var connStr = "mongodb://";
+  this.connect = function (callback) {
+    /*var connStr = "mongodb://";
     connStr = connStr + user + ":";
     connStr = connStr + pwd + "@";
     connStr = connStr + host + "/";
-    connStr = connStr + db;
-    connStr = "mongodb://cucumber.utu.ai:27018/?ssl=true&certificatePreference=RootCACert:from_file&rootCAPath=ca.crt"
+    connStr = connStr + db;*/
+    var connStr = "mongodb://cucumber.utu.ai:27018/?ssl=true&certificatePreference=RootCACert:from_file&rootCAPath=ca.crt"
     console.log(connStr);
 
     MongoClient.connect(connStr, function (err, db) {
@@ -28,7 +28,8 @@ var World = function World(callback) {
       }
       console.log('Connection successful...');
       self.db = db;
-      //callback();
+      console.log('Here is the db: ', db);
+      callback();
     });
   }
 
@@ -108,14 +109,15 @@ var World = function World(callback) {
   }
 
   this.getCollection = function (collection) {
-    this.db.collection(collection, function (error, data_collection) {
+    console.log('Here is the db in getCollection: ', self.db);
+    self.db.collection(collection, function (error, data_collection) {
       if (error) callback(error);
       else callback(null, data_collection);
     });
   };
 
   //find all datas
-  this.findAll = function (callback) {
+  this.findAll = function (data_collection, callback) {
     this.getCollection(function (error, data_collection) {
       if (error) callback(error)
       else {
