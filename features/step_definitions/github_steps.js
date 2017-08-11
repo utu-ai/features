@@ -40,12 +40,31 @@ var GithubStepsWrapper = function () {
   });
 
   this.Then(/^save the Event$/, function (callback) {
-      var results = this.findAll();
-      console.log(this.lastResponse);
-      callback();
+    var results = this.findAll();
+    console.log(this.lastResponse);
+    callback();
   });
 
   this.Then(/^update Identity with Event$/, function (callback) {
+    // express the regexp above with the code you wish you had
+    callback.pending();
+  });
+
+  this.When(/^an Identity update is received for a non\-matching field$/, function (callback) {
+    // express the regexp above with the code you wish you had
+    callback.pending();
+  });
+  
+  this.Then(/^upsert an Identity tin record$/, function (callback) {
+    // express the regexp above with the code you wish you had
+    callback.pending();
+  });
+
+  this.Then(/^push update to all medal Identity views$/, function (callback) {
+    // express the regexp above with the code you wish you had
+    callback.pending();
+  });
+  this.Then(/^push Identity rollup to related services$/, function (callback) {
     // express the regexp above with the code you wish you had
     callback.pending();
   });

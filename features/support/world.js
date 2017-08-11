@@ -212,7 +212,7 @@ var World = function World(callback) {
   }
 
   this.uri = function (path) {
-    return env.BASE_URL + path
+    return '';//env.BASE_URL + path: Rajesh-> Since the base url is changing I am keeping this as a hardcoded on
   }
 
   callback()
