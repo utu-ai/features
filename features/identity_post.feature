@@ -1,4 +1,4 @@
-@identity @identity_post
+@identity @identity_post @e2e
 Feature: upsert identity
   Whenever data is received about a user
   whether from external source
@@ -17,46 +17,25 @@ Feature: upsert identity
     Event
     Dialog
 
-Background:
-    Given there are Identity records as follows:
-    | identityKey    |
-    | TIN_RECORD     |
-    | BRONZE_RECORD  |
-    | GOLD_RECORD    |
+#Non-Matching Scenarios
+Scenario: unmatchable update received for existing identity
+   Given a number of related, but unmatched identity records exist
+    When an unmatchable update is received for that identity
+    Then upsert identity
 
-@acceptance
-Scenario: Update received for Identity "custom" field
-    When an Identity update is received for a non-matching field
-    Then upsert an Identity tin record
-     And push update to all medal Identity views
-     And push Identity rollup to related services
+Scenario: unmatchable update received for new identity
+   Given no records exist that match the new identity
+    When an unmatchable update is received for that identity
+    Then upsert identity
 
-Scenario: Updare received for Identity "match" field
-    When an Identity update is received with "email"
-    Then review medal match when upserting an Identity tin record
-     And push update to all medal Identity views
-     And push impacted Identity rollup to related services
+#Matching Scenarios
+Scenario: matchable update received for existing identity
+   Given there is a number of related, but unmatched identity records
+     And existing identity records have associated events 
+    When a matchable update is received for that identity
+    Then upsert identity
 
-Scenario: Updare received for Identity "match" field
-    When an Identity update is received with "phone + first"
-    Then review medal match when upserting an Identity tin record
-     And push update to all medal Identity views
-     And push impacted Identity rollup to related services
-
-Scenario: Updare received for Identity "match" field
-    When an Identity update is received with "browserId"
-    Then review medal match when upserting an Identity tin record
-     And push update to all medal Identity views
-     And push impacted Identity rollup to related services
-	 
-Scenario: Updare received for Identity "match" field
-    When an Identity update is received with "p + pid"
-    Then review medal match when upserting an Identity tin record
-     And push update to all medal Identity views
-     And push impacted Identity rollup to related services
-
-Scenario: Updare received for Identity "match" field
-    When an Identity update is received with "foreignId"
-    Then review medal match when upserting an Identity tin record
-     And push update to all medal Identity views
-     And push impacted Identity rollup to related services
+Scenario: matchable update received for existing identity
+   Given no records exist that match the new identity
+    When a matchable update is received for that identity
+    Then upsert identity
