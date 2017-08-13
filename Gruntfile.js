@@ -16,7 +16,8 @@ module.exports = function(grunt) {
       files: 'features',
       options: {
         format: 'pretty',
-        tags:'@for_testing'
+        tags:'@for_testing_1',
+        steps:'features/step_definitions/github_steps.js'
       }
     },
     watch: {

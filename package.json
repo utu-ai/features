@@ -27,7 +27,8 @@
     "grunt-cucumber": "~0.2.3",
     "grunt-cli": "^1.2.0",
     "JSONPath": "~0.9.1",
-    "request": "~2.27.0"
+    "request": "~2.27.0",
+    "chance": "latest"
   },
   "dependencies": {
     "grunt-shell-spawn": "^0.3.10",

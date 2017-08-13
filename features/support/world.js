@@ -6,12 +6,17 @@ var env = require('./env')
 
 var MongoClient = require('mongodb').MongoClient;
 
+var fs = require('fs');
+
+var Chance = require('chance');
+
 var World = function World(callback) {
 
   var self = this;
 
   this.lastResponse = null;
   this.db = null;
+  this.myData = null;
 
   this.connect = function (callback) {
     /*var connStr = "mongodb://";
@@ -29,7 +34,7 @@ var World = function World(callback) {
       console.log('Connection successful...');
       self.db = db;
       console.log('Here is the db: ', db);
-      callback();
+      callback(null, db);
     });
   }
 
@@ -193,6 +198,39 @@ var World = function World(callback) {
       }
     });
   };
+
+  this.createIdentityData = function (dataFile, key,callback) {
+
+    var chance = new Chance();
+    fs.readFile(dataFile, 'utf-8', function (err, data) {
+      if (err) throw err;
+      self.myData = data;
+      console.log(data);
+
+      switch (key) {
+        case 'VALID_RECORD':
+          var obj = JSON.parse(data);
+          obj.avatar = chance.avatar();
+          obj.firstName = chance.first();
+          obj.lastName = chance.last();
+          obj.middleName = chance.first();
+          obj.saluation = chance.prefix();
+          obj.suffix = chance.suffix();
+          obj.name = obj.saluation + " " + obj.firstName + " " + obj.middleName + " " + obj.lastName + " " + obj.suffix;
+          obj.email = chance.email({ domain: 'utu.ai' });
+          obj.phone = chance.phone();
+          self.myData = obj;
+          console.log('Here is the data: ', obj);
+          break;
+        case 'VALID_RECORD_WITH_EMAIL_UPDATED':
+
+          break;
+      }
+      //callback();
+    });
+  };
+
+
 
 
   this.rootPath = function () {

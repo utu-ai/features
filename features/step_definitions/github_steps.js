@@ -4,67 +4,30 @@
 // wtf jshint? eval can be harmful? But that is not eval, it's JSONPath#eval
 var jsonPath = require('JSONPath').eval;
 /* jshint +W061 */
-var url = require('url')
+var url = require('url');
 
-var GithubStepsWrapper = function () {
+var expect = require('chai').expect;
+//var IdentityDataGen = require('../support/generators/identity_data_generators').IdentityDataGen;
+
+var GithubStepsWrapper = function (callback) {
 
   this.World = require('../support/world.js').World;
 
   //  this.DB = require('../support/db.js').DB;
 
-  this.Given(/^there are Identity records as follows:$/, function (table, callback) {
+  this.Given(/^no records exist that match the new identity$/, function (callback) {
+    this.createIdentityData('data/identity.json', 'VALID_RECORD',callback);
     this.connect(callback);
-    //this.conn('Rajesh');
+    console.log(this);
+    //callback();
   });
 
-  this.When(/^a valid new Event is received$/, function (callback) {
-    var apiKey = "0475dbadc4cb410bbf562d605ea2cd47";
-    var context = {
-      platform: "sms",
-      platformId: "123-123-1234",
-      event: "test sms evet",
-      values: {
-        var1: "foo",
-        var2: "bar"
-      }
-    };
-
-    this.post(
-      "/track",
-      apiKey,
-      JSON.stringify(context),
-      callback()
-    );
-
-    //console.log(this.lastResponse);
-  });
-
-  this.Then(/^save the Event$/, function (callback) {
-    var results = this.findAll();
-    console.log(this.lastResponse);
-    callback();
-  });
-
-  this.Then(/^update Identity with Event$/, function (callback) {
+  this.When(/^an unmatchable update is received for that identity$/, function (callback) {
     // express the regexp above with the code you wish you had
     callback.pending();
   });
 
-  this.When(/^an Identity update is received for a non\-matching field$/, function (callback) {
-    // express the regexp above with the code you wish you had
-    callback.pending();
-  });
-  
-  this.Then(/^upsert an Identity tin record$/, function (callback) {
-    // express the regexp above with the code you wish you had
-    callback.pending();
-  });
-
-  this.Then(/^push update to all medal Identity views$/, function (callback) {
-    // express the regexp above with the code you wish you had
-    callback.pending();
-  });
-  this.Then(/^push Identity rollup to related services$/, function (callback) {
+  this.Then(/^upsert identity$/, function (callback) {
     // express the regexp above with the code you wish you had
     callback.pending();
   });
